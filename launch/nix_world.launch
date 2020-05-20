@@ -1,0 +1,21 @@
+<launch>
+  <arg name="x_pos" default="2.0"/>
+  <arg name="y_pos" default="9.67"/>
+  <arg name="z_pos" default="0.3"/>
+  <arg name="yaw" default="1.57"/>
+  <env name="GAZEBO_MODEL_PATH" value="$(find nix_simulator)/models:$(optenv GAZEBO_MODEL_PATH)"/>
+  <env name="GAZEBO_RESOURCE_PATH" value="${GAZEBO_RESOURCE_PATH}:$(find nix_simulator)/models"/>
+  <arg name="world_file" default="nix_ramp.world"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find nix_simulator)/worlds/$(arg world_file)"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+    <arg name="verbose" value="true"/>
+  </include>
+
+  <node pkg="gazebo_ros" type="spawn_model" name="spawn_sdf"  args="-sdf -model raposaNG -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -Y $(arg yaw) -file $(find nix_simulator)/models/raposaNG/raposaNG.sdf" output="screen"/>
+</launch>

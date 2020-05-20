@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <model name="mockup_nix">
+    <static>true</static>
+    
+   <link name="model_nix">
+      <collision name="collision">
+        <geometry>
+          <mesh>
+            <!-- <uri>model://mockup_nix/mesh/mockup_nix.STL</uri> -->
+            <uri>model://mockup_nix/mesh/mockup_nix.dae</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+        <!-- JAC: friction coefficient-->
+          <surface>
+            <contact>
+              <!-- </ode> -->
+              <collide_bitmask>65535</collide_bitmask>
+              <!-- <min_depth>0.01</min_depth> -->
+              <ode/>
+            </contact>
+            <friction>
+              <ode>
+                <mu>100.0</mu>
+                <mu2>100.0</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>        
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <!-- <uri>model://mockup_nix/mesh/mockup_nix.STL</uri> -->
+            <uri>model://mockup_nix/mesh/mockup_nix.dae</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+          <!-- JAC: friction coefficient-->
+          <surface>
+            <contact>
+              <!-- </ode> -->
+              <collide_bitmask>65535</collide_bitmask>
+              <!-- <min_depth>0.01</min_depth> -->
+              <ode/>
+            </contact>
+            <friction>
+              <ode>
+                <mu>100.0</mu>
+                <mu2>100.0</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+      </visual>
+    </link>
+  </model>
+</sdf>
