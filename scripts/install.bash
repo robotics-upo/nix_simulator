@@ -18,11 +18,8 @@ else
 fi
 
 # Install gazebo 9 last release. TODO: necessary??
-# sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
-# sudo apt-get update
-# sudo apt-get upgrade -y
-# sudo apt-get install gazebo9 -y
-
+sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
+sudo apt-get update
 sudo apt-get install ros-melodic-gazebo-ros gazebo9 -y
 
 # Build the SimpleTrackedVehicleROS plugin
