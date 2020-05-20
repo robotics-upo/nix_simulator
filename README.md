@@ -19,9 +19,9 @@ You have to call it with the root location of the target catkin workspace to be 
 
 Example:
 
-'''
+```
 scripts/install.bash ~/catkin_ws
-'''
+```
 
 It will install the required packages, download or pull this repository into the selected workspace, build it. Finally, it will download the necessary mesh mesources if needed.
 
@@ -29,8 +29,8 @@ It will install the required packages, download or pull this repository into the
 
 To launch the environment just launch the provided launch/nix_world.launch file.
 
-'''
+```
 roslaunch nix_simulator nix_world.launch
-'''
+```
 
 It will launch a raposa platform inside the nix mockup. The plaform accepts input command velocities with the ROS 'cmd_vel' topic.
