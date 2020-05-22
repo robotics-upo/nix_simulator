@@ -17,5 +17,5 @@
     <arg name="verbose" value="true"/>
   </include>
 
-  <node pkg="gazebo_ros" type="spawn_model" name="spawn_sdf"  args="-sdf -model raposaNG -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -Y $(arg yaw) -file $(find nix_simulator)/models/raposaNG/raposaNG.sdf" output="screen"/>
+  <node pkg="gazebo_ros" type="spawn_model" name="spawn_sdf"  args="-sdf -model nix -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -Y $(arg yaw) -file $(find nix_simulator)/models/nix/nix.sdf" output="screen"/>
 </launch>
