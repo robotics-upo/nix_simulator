@@ -51,27 +51,18 @@ matrix:
     
 env:
   global:
-  - WORKSPACE_FOLDER="~/catkin_ws"
-  - PACKAGE_NAME="`cat package.xml | grep name | sed -e 's/<[^>]*>//g' `"
   - ROS_CI_DESKTOP="`lsb_release -cs`"
-  - BUILD_PREFIX=/tmp/bloom_debian
   - CI_SOURCE_PATH=$(pwd)
   - ROSINSTALL_FILE=$CI_SOURCE_PATH/dependencies.rosinstall
   - CATKIN_OPTIONS=$CI_SOURCE_PATH/catkin.options
   - ROS_PARALLEL_JOBS='-j8 -l6'
   - PYTHONPATH=$PYTHONPATH:/usr/lib/python2.7/dist-packages:/usr/local/lib/python2.7/dist-packages
-  - GITHUB_TOKEN=X56Ht+adqieRbwmdBtWOxSM0gWnwARhcbmKQdneeUuLLY0JwhoA0RUA+NcYO5ICdgf29uIseMCYF3vznU2sPUfmew1yvnbFtHXLJ1TINHoGoZLDF197YDis3UUNW15RAbGnVcZi15TKcTgCG5cqFaBwwRrRAgBAAbgzunE0F/fyL2u0ot1yqXCe2MsyTtxIWY+sRMJ2giNn/12C68W5UWEbHWzT5IaA/ZAqVH4fDa+jf379EyA1WzHrireUfI1wBBPAVAF1bTPzSr7e2ReESiPWYhQKmswJ9lx25utt7lq4MFy5H5ur1thl7n2m26xdMuaaGlkYEsmfkBmfZyB5HNkU3+U414j2hNMQ3xmsrI9r+Xjvh3xVlCpOn8z2IyLJNAff86aCpDjEPynY39X5Lr9ZjHUD6ESchFnMuGv7Krua7TnGXbU/6U/Bj0HRwLZHU9dnn6Qh4FSDZ9yyXpm0fJ9vOvSrZXsPzugqqoyYeDHqhRj/DauFdITERij3oub0nfJYQ2/Oujlc6AkgSWFLnKT3FbB3uqzdPqncDxqU0US03VnJQv64wH/gWMoVy8tzcJx3Wa5mqQy/0u/Rd8m6zKprEAKvkXgZt7vS3Rrw1MyE2XUcN9XaAm7cPX8Uo1Gfkq6mi+pwdLQCGhltHjkGG4JOUU55Bd5Ymp/W2KuKjplU=
+  - secure: X56Ht+adqieRbwmdBtWOxSM0gWnwARhcbmKQdneeUuLLY0JwhoA0RUA+NcYO5ICdgf29uIseMCYF3vznU2sPUfmew1yvnbFtHXLJ1TINHoGoZLDF197YDis3UUNW15RAbGnVcZi15TKcTgCG5cqFaBwwRrRAgBAAbgzunE0F/fyL2u0ot1yqXCe2MsyTtxIWY+sRMJ2giNn/12C68W5UWEbHWzT5IaA/ZAqVH4fDa+jf379EyA1WzHrireUfI1wBBPAVAF1bTPzSr7e2ReESiPWYhQKmswJ9lx25utt7lq4MFy5H5ur1thl7n2m26xdMuaaGlkYEsmfkBmfZyB5HNkU3+U414j2hNMQ3xmsrI9r+Xjvh3xVlCpOn8z2IyLJNAff86aCpDjEPynY39X5Lr9ZjHUD6ESchFnMuGv7Krua7TnGXbU/6U/Bj0HRwLZHU9dnn6Qh4FSDZ9yyXpm0fJ9vOvSrZXsPzugqqoyYeDHqhRj/DauFdITERij3oub0nfJYQ2/Oujlc6AkgSWFLnKT3FbB3uqzdPqncDxqU0US03VnJQv64wH/gWMoVy8tzcJx3Wa5mqQy/0u/Rd8m6zKprEAKvkXgZt7vS3Rrw1MyE2XUcN9XaAm7cPX8Uo1Gfkq6mi+pwdLQCGhltHjkGG4JOUU55Bd5Ymp/W2KuKjplU=
 before_install:
 - sudo sh -c "echo \"deb http://packages.ros.org/ros/ubuntu $ROS_CI_DESKTOP main\" > /etc/apt/sources.list.d/ros-latest.list"
 - sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 - sudo apt-get update -qq
 - sudo apt-get install dpkg
-#- sudo apt-get install python-pip
-#- pip install enum34
-- sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
-- sudo apt-get update
-- sudo apt-get install gazebo9 -y
-- sudo apt-get install ros-melodic-gazebo-ros gazebo9 -y
 - sudo apt-get install -y python-catkin-pkg python-rosdep python-wstool ros-$ROS_DISTRO-ros-base
 - source /opt/ros/$ROS_DISTRO/setup.bash
 - sudo rosdep init
@@ -95,5 +86,4 @@ before_script:
 script:
 - source /opt/ros/$ROS_DISTRO/setup.bash
 - cd ~/catkin_ws
-- catkin_make install
-- source devel/setup.bash
+- catkin_make 
