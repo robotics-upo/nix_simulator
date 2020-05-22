@@ -1,5 +1,5 @@
 # nix_simulator
-Stand-alone package with the developments of the new nix-simulator. 
+Stand-alone package with the developments of the new nix-simulator
 
 The developments of this package have been funded by the European Commision under the NIx project of the Esmera innitiative. For more information please follow the link: http://www.esmera-project.eu/nix/
 
