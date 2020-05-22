@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/robotics-upo/nix_simulator.svg?token=TqYzdkAmMjrnqQCYqhh1&branch=master)](https://travis-ci.com/robotics-upo/nix_simulator)
+
 # nix_simulator
 Stand-alone package with the developments of the new nix-simulator
 
