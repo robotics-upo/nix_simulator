@@ -13,14 +13,14 @@ This package has been designed and tested in a x86_64 machine under a Linux 18.0
 
 ### Instalation steps:
 
-We provide you with a handy installation script, which is found in scripts/install.bash. 
+We provide you with a handy installation script, which is automatically called when doing a catkin make. It can be found at scripts/ folder. 
 
-You have to call it with the root location of the target catkin workspace to be installed in. It should be called from a regular user account with sudo priviledges.
-
-Example:
+To invoke it just perform a catkin_make in the workspace where it is downloaded
 
 ```
-scripts/install.bash ~/catkin_ws
+roscd 
+cd ..
+catkin_make
 ```
 
 It will install the required packages, download or pull this repository into the selected workspace, build it. Finally, it will download the necessary mesh mesources if needed.
