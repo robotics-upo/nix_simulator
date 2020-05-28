@@ -3,7 +3,8 @@
   <arg name="y_pos" default="9.67"/>
   <arg name="z_pos" default="0.3"/>
   <arg name="yaw" default="1.57"/>
-  <env name="GAZEBO_MODEL_PATH" value="$(find nix_simulator)/models:$(optenv GAZEBO_MODEL_PATH)"/>
+  
+  <env name="GAZEBO_MODEL_PATH" value="$(find nix_simulator)/models/sensors:$(find nix_simulator)/models:$(optenv GAZEBO_MODEL_PATH)"/>
   <env name="GAZEBO_RESOURCE_PATH" value="${GAZEBO_RESOURCE_PATH}:$(find nix_simulator)/models"/>
   <arg name="world_file" default="nix_ramp.world"/>
 
