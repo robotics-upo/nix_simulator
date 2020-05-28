@@ -1,0 +1,239 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="nix_tower">
+    <pose frame=''>0 0 0 0 0 0</pose>
+    
+    <!-- Base -->
+    <link name="base_link">
+      <pose>0 0 0.0025 0 0 0</pose>
+      <inertial>
+        <mass>0.2</mass>
+        <inertia>
+          <ixx>0.001087473</ixx>
+          <iyy>0.001087473</iyy>
+          <izz>0.001092437</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="bl_collision">
+        <geometry>
+            <box>
+              <size>.24 .24 .005</size>
+            </box>
+        </geometry>
+      </collision>
+      <visual name="bl_visual">
+        <material>
+                    <script>
+                      <name>Gazebo/Red</name>
+                    </script>
+                </material>
+        <geometry>
+            <box>
+              <size>.24 .24 .005</size>
+            </box>
+        </geometry>
+      </visual>
+    </link>
+
+    <!-- Tower -->
+    <link name="stick_1">
+      <pose>-0.1 -0.1 0.155 0 0 0</pose>
+      <inertial>
+        <mass>0.1</mass>
+        <inertia>
+          <ixx>0.001087473</ixx>
+          <iyy>0.001087473</iyy>
+          <izz>0.001092437</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="stick_1_collision">
+        <geometry>
+            <box>
+              <size>.02 .02 .31</size>
+            </box>
+        </geometry>
+      </collision>
+      <visual name="stick_1_visual">
+        <material>
+                    <script>
+                      <name>Gazebo/Red</name>
+                    </script>
+                </material>
+        <geometry>
+            <box>
+              <size>.02 .02 .31</size>
+            </box>
+        </geometry>
+      </visual>
+    </link>
+    <joint name="stick_1_joint" type="fixed">
+      <child>stick_1</child>
+      <parent>base_link</parent>
+     
+      <pose>0 0 0 0 0 0</pose>
+    </joint>
+    <link name="stick_2">
+      <pose>-0.1 0.1 0.155 0 0 0</pose>
+      <inertial>
+        <mass>0.1</mass>
+        <inertia>
+          <ixx>0.001087473</ixx>
+          <iyy>0.001087473</iyy>
+          <izz>0.001092437</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="stick_2_collision">
+        <geometry>
+            <box>
+              <size>.02 .02 .31</size>
+            </box>
+        </geometry>
+      </collision>
+      <visual name="stick_2_visual">
+        <material>
+                    <script>
+                      <name>Gazebo/Red</name>
+                    </script>
+                </material>
+        <geometry>
+            <box>
+              <size>.02 .02 .31</size>
+            </box>
+        </geometry>
+      </visual>
+    </link>
+    <joint name="stick_2_joint" type="fixed">
+      <child>stick_2</child>
+      <parent>base_link</parent>
+     
+      <pose>0 0 0 0 0 0</pose>
+    </joint>
+    <link name="stick_3">
+      <pose>0.1 -0.1 0.155 0 0 0</pose>
+      <inertial>
+        <mass>0.1</mass>
+        <inertia>
+          <ixx>0.001087473</ixx>
+          <iyy>0.001087473</iyy>
+          <izz>0.001092437</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="stick_3_collision">
+        <geometry>
+            <box>
+              <size>.02 .02 .31</size>
+            </box>
+        </geometry>
+      </collision>
+      <visual name="stick_3_visual">
+        <material>
+                    <script>
+                      <name>Gazebo/Red</name>
+                    </script>
+                </material>
+        <geometry>
+            <box>
+              <size>.02 .02 .31</size>
+            </box>
+        </geometry>
+      </visual>
+    </link>
+    <joint name="stick_3_joint" type="fixed">
+      <child>stick_3</child>
+      <parent>base_link</parent>
+     
+      <pose>0 0 0 0 0 0</pose>
+    </joint>
+    
+    <link name="stick_4">
+      <pose>0.1 0.1 0.155 0 0 0</pose>
+      <inertial>
+        <mass>0.1</mass>
+        <inertia>
+          <ixx>0.001087473</ixx>
+          <iyy>0.001087473</iyy>
+          <izz>0.001092437</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="stick_4_collision">
+        <geometry>
+            <box>
+              <size>.02 .02 .31</size>
+            </box>
+        </geometry>
+      </collision>
+      <visual name="stick_4_visual">
+        <material>
+                    <script>
+                      <name>Gazebo/Red</name>
+                    </script>
+                </material>
+        <geometry>
+            <box>
+              <size>.02 .02 .31</size>
+            </box>
+        </geometry>
+      </visual>
+    </link>
+    <joint name="stick_4_joint" type="fixed">
+      <child>stick_4</child>
+      <parent>base_link</parent>
+     
+      <pose>0 0 0 0 0 0</pose>
+    </joint>
+
+    <link name="plate">
+      <pose>0 0 0.3075 0 0 0</pose>
+      <inertial>
+        <mass>0.2</mass>
+        <inertia>
+          <ixx>0.001087473</ixx>
+          <iyy>0.001087473</iyy>
+          <izz>0.001092437</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="plate_collision">
+        <geometry>
+            <box>
+              <size>.24 .24 .005</size>
+            </box>
+        </geometry>
+      </collision>
+      <visual name="plate_visual">
+        <material>
+                    <script>
+                      <name>Gazebo/Red</name>
+                    </script>
+                </material>
+        <geometry>
+            <box>
+              <size>.24 .24 .005</size>
+            </box>
+        </geometry>
+      </visual>
+    </link>
+    <joint name="plate_joint" type="fixed">
+      <child>plate</child>
+      <parent>base_link</parent>
+      <pose>0 0 0 0 0 0</pose>
+    </joint>
+  </model>
+</sdf>

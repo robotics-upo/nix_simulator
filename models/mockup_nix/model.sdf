@@ -7,7 +7,6 @@
       <collision name="collision">
         <geometry>
           <mesh>
-            <!-- <uri>model://mockup_nix/mesh/mockup_nix.STL</uri> -->
             <uri>model://mockup_nix/mesh/mockup_nix.dae</uri>
             <scale>0.001 0.001 0.001</scale>
           </mesh>
@@ -31,12 +30,11 @@
             </friction>
             <bounce/>
           </surface>
-          <max_contacts>10</max_contacts>        
+          <max_contacts>5</max_contacts>        
       </collision>
       <visual name="visual">
         <geometry>
           <mesh>
-            <!-- <uri>model://mockup_nix/mesh/mockup_nix.STL</uri> -->
             <uri>model://mockup_nix/mesh/mockup_nix.dae</uri>
             <scale>0.001 0.001 0.001</scale>
           </mesh>
