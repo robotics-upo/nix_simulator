@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="nix">
+    <pose frame=''>0 0 0 0 0 0</pose>
+    
+    <include>
+      <uri>model://raposaNG</uri>
+      <pose frame=''> 0 0 0 0 0 0 </pose>
+    </include>
+
+    <include>
+      <uri>model://nix_tower</uri>
+      <pose frame=''> 0 0 0.05 0 0 0 </pose>
+    </include>
+    <joint name="tower_joint" type="fixed">
+      <child>nix_tower::base_link</child>
+      <parent>raposaNG::base_link</parent>
+     
+      <pose>0 0 0 0 0 0</pose>
+    </joint>
+
+    <!-- Ouster Configuration-->
+    <include>
+      <uri>model://velodyne_hdl32</uri>
+      <pose frame=''> 0 0 0.35 0 0 0 </pose>
+    </include>
+    <joint name="velodyne_joint" type="fixed">
+      <child>velodyne::base</child>
+      <parent>raposaNG::base_link</parent>
+     
+      <pose>0 0 0 0 0 0</pose>
+    </joint>    
+
+  </model>
+</sdf>
