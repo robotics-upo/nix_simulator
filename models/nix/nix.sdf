@@ -5,12 +5,12 @@
     
     <include>
       <uri>model://raposaNG</uri>
-      <pose frame=''> 0 0 0 0 0 0 </pose>
+      <pose frame=''> 0 0 0.07 0 0 0 </pose>
     </include>
 
     <include>
       <uri>model://nix_tower</uri>
-      <pose frame=''> 0 0 0.05 0 0 0 </pose>
+      <pose frame=''> 0.15 0 0.15 0 0 0 </pose>
     </include>
     <joint name="tower_joint" type="fixed">
       <child>nix_tower::base_link</child>
@@ -18,18 +18,59 @@
      
       <pose>0 0 0 0 0 0</pose>
     </joint>
-
+    
     <!-- Ouster Configuration-->
     <include>
       <uri>model://velodyne_hdl32</uri>
-      <pose frame=''> 0 0 0.35 0 0 0 </pose>
+      <pose frame=''> 0.15 0 0.38 0 0 0 </pose>
     </include>
     <joint name="velodyne_joint" type="fixed">
       <child>velodyne::base</child>
-      <parent>raposaNG::base_link</parent>
+      <parent>nix_tower::plate</parent>
      
       <pose>0 0 0 0 0 0</pose>
     </joint>    
+
+    <!-- Pico Flexx Cameras -->
+    <include>
+      <uri>model://pico_flexx_f</uri>
+      <pose frame=''> 0.26 0 0.4 0 0.02 0 </pose>
+    </include>
+    <joint name="pico_flexx_f_joint" type="fixed">
+      <child>pico_flexx_f::base_link</child>
+      <parent>nix_tower::plate</parent>
+      <pose>0 0 0 0 0 0</pose>
+    </joint> 
+
+    <include>
+      <uri>model://pico_flexx_b</uri>
+      <pose frame=''> 0.04 0 0.4 0 0.02 3.141592 </pose>
+    </include>
+    <joint name="pico_flexx_b_joint" type="fixed">
+      <child>pico_flexx_b::base_link</child>
+      <parent>nix_tower::plate</parent>
+      <pose>0 0 0 0 0 0</pose>
+    </joint>
+
+    <include>
+      <uri>model://pico_flexx_l</uri>
+      <pose frame=''> 0.15 0.11 0.4 0 0.25 1.5708 </pose>
+    </include>
+    <joint name="pico_flexx_l_joint" type="fixed">
+      <child>pico_flexx_l::base_link</child>
+      <parent>nix_tower::plate</parent>
+      <pose>0 0 0 0 0 0</pose>
+    </joint>     
+
+    <include>
+      <uri>model://pico_flexx_r</uri>
+      <pose frame=''> 0.15 -0.11 0.4 0 0.25 -1.5708 </pose>
+    </include>
+    <joint name="pico_flexx_r_joint" type="fixed">
+      <child>pico_flexx_r::base_link</child>
+      <parent>nix_tower::plate</parent>
+      <pose>0 0 0 0 0 0</pose>
+    </joint>
 
   </model>
 </sdf>
