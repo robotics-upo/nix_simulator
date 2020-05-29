@@ -10,6 +10,8 @@ project(nix_simulator)
 
 execute_process(COMMAND "./scripts/updateDepends.sh" 
                 WORKING_DIRECTORY ${PROJECT_SOURCE_DIR} )
+execute_process(COMMAND "./scripts/duplicate_sensors.sh" 
+                WORKING_DIRECTORY ${PROJECT_SOURCE_DIR} )
 find_package(catkin REQUIRED COMPONENTS
   gazebo_plugins
   gazebo_ros
@@ -24,7 +26,6 @@ include_directories(${std_msgs_INCLUDE_DIRS})
 
 # Find Gazebo
 find_package(gazebo REQUIRED)
-# include_directories(${GAZEBO_INCLUDE_DIRS} /usr/include/gazebo-9/gazebo ) #for nix_plugin
 include_directories(${GAZEBO_INCLUDE_DIRS} deps/opende/src deps/threadpool/  )
 link_directories(${GAZEBO_LIBRARY_DIRS})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
