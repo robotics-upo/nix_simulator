@@ -45,7 +45,7 @@
             </friction>
             <bounce/>
           </surface>
-          <max_contacts>10</max_contacts>
+          <max_contacts>100</max_contacts>
         </collision>
         <visual name='visual'>
           <cast_shadows>0</cast_shadows>
@@ -58,7 +58,7 @@
           <material>
             <script>
               <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <name>Gazebo/Grass</name>
             </script>
           </material>
         </visual>
@@ -73,7 +73,7 @@
     
     <atmosphere type='adiabatic'/>
     
-    <physics name='default_physics' default='0' type='bullet'>
+    <!-- <physics name='default_physics' default='0' type='bullet'>
       <max_step_size>0.001</max_step_size>
       <real_time_factor>1</real_time_factor>
       <real_time_update_rate>1000</real_time_update_rate>
@@ -83,9 +83,9 @@
         </solver>
       </bullet>
     </physics>
-    
-<!--    <physics name='default_physics' default='0' type='ode'>
-      <max_step_size>0.001</max_step_size>
+     -->
+   <physics name='default_physics' default='0' type='ode'>
+      <max_step_size>0.01</max_step_size>
       <real_time_factor>1</real_time_factor>
       <real_time_update_rate>1000</real_time_update_rate>
       <ode>
@@ -94,7 +94,7 @@
         </solver>
       </ode>
     </physics>
-    -->
+   
     <scene>
       <ambient>0.4 0.4 0.4 1</ambient>
       <background>0.7 0.7 0.7 1</background>
