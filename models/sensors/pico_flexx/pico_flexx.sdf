@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+
+<sdf version="1.6">
+  <model name="pico_flexx" >
+    <pose>0 0 0 0 0 0</pose>
+    <link name="base_link">
+      <gravity>true</gravity>
+      <inertial>
+        <mass>0.005</mass>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.0073500 0.068000 0.017000</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <pose>0 0 0 1.57 0 1.57</pose>
+        <geometry>
+          <mesh>
+            <uri>model://pico_flexx/meshes/picoflexx.stl</uri>
+            <scale>0.001 0.001 0.001 </scale>
+          </mesh> 
+        </geometry>
+      </visual>
+      <sensor type="ray" name="sensor">
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>false</visualize>
+        <update_rate>3.5</update_rate>
+        <ray>
+          <scan>
+             <horizontal>
+              <samples>60</samples>
+              
+              <min_angle>-0.5411</min_angle>
+              <max_angle>0.5411</max_angle>
+            </horizontal>
+            <vertical>
+              <samples>50</samples>
+              
+              <min_angle>-0.3927</min_angle>
+              <max_angle>0.3927</max_angle>
+            </vertical>
+          </scan>
+          <range>
+            <min>0.2</min>
+            <max>4</max>
+            <resolution>0.01</resolution>
+          </range>
+        </ray>
+        <plugin name="gazebo_ros_laser_controller" filename="libgazebo_ros_velodyne_laser.so">
+          <topicName>pico_flexx/points</topicName>
+          <frameName>pico_flexx</frameName>
+          <min_range>0.2</min_range>
+          <max_range>4.0</max_range>
+          <gaussianNoise>0.008</gaussianNoise>  
+        </plugin>
+      </sensor> 
+    </link>
+  </model>
+</sdf>
