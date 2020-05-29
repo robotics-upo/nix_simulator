@@ -30,7 +30,7 @@
             </friction>
             <bounce/>
           </surface>
-          <max_contacts>5</max_contacts>        
+          <max_contacts>50</max_contacts>        
       </collision>
       <visual name="visual">
         <geometry>
