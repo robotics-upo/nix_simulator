@@ -96,11 +96,11 @@ By now it's only configured for joy teleoperation, if you want to use the keyboa
 To launch the mapping features you will need two more packages, the LOAM(branch final) and the nix_launchers (branch simulation_features). In order to compile and run the loam package you need to install [ceres solver](http://ceres-solver.org/installation.html) before.
 
 ```
-git clone https://github.com/robotics-upo/a-loam.git
+git clone -b final https://github.com/robotics-upo/a-loam.git
 ```
 And
 ```
-git clone https://github.com/robotics-upo/nix_launchers.git
+git clone -b simulation_features https://github.com/robotics-upo/nix_launchers.git
 ```
 
 Download and compile them in your workspace and launch the whole system with:
