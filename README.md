@@ -109,7 +109,12 @@ Download and compile them in your workspace and launch the whole system with:
 roslaunch nix_simulator nix_world.launch joy_teleop:=true launch_raposa_marker:=true rviz:=true mapping_system:=true
 ```
 
-It will also launch the teleop, the raposa marker for rviz, the rviz mapping layout.
+It will also launch the teleop, the raposa marker for rviz, the rviz mapping layout. If you are happy with the maps, you can save them by running:
+```
+rosrun nix_launchers save_maps.sh <map_name> <projected_map_topic> <folder_to_save_maps>
+```
+
+Where ```<projected_map_topic>``` can be ```/p_map``` or ```/projected_map``` and ```<folder_to_save_maps>``` the *full* path of the folder where you want to save your maps.
 
 ### Rviz Layout
 
