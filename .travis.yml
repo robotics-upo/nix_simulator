@@ -67,6 +67,7 @@ before_install:
 - source /opt/ros/$ROS_DISTRO/setup.bash
 - sudo rosdep init
 - rosdep update --include-eol-distros
+- rosrun nix_simulator updateDepends.sh
 install:
 - mkdir -p ~/catkin_ws/src
 - cd ~/catkin_ws/src
