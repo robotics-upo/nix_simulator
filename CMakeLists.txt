@@ -8,9 +8,9 @@ project(nix_simulator)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 
-execute_process(COMMAND "./scripts/updateDepends.sh" 
-                WORKING_DIRECTORY ${PROJECT_SOURCE_DIR} )
 execute_process(COMMAND "./scripts/duplicate_sensors.sh" 
+                WORKING_DIRECTORY ${PROJECT_SOURCE_DIR} )
+execute_process(COMMAND "./scripts/download_mesh.sh" 
                 WORKING_DIRECTORY ${PROJECT_SOURCE_DIR} )
 find_package(catkin REQUIRED COMPONENTS
   gazebo_plugins
