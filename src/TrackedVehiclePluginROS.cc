@@ -117,7 +117,7 @@ void TrackedVehiclePluginROS::Load(physics::ModelPtr _model,
     this->odometry_frame_ = _sdf->GetElement("odometryFrame")->Get<std::string>();
   }
 
-  this->robot_base_frame_ = "base_footprint";
+  this->robot_base_frame_ = "base_link";
   if (!_sdf->HasElement("robotBaseFrame")) {
     ROS_WARN("GazeboRosWheelsPiston Plugin (ns = %s) missing <robotBaseFrame>, defaults to \"%s\"",
         this->robot_namespace_.c_str(), this->robot_base_frame_.c_str());
