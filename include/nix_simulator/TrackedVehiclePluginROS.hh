@@ -36,6 +36,7 @@
 // ROS Includes
 #include "geometry_msgs/Twist.h"
 #include "ros/ros.h"
+#include "tf/transform_broadcaster.h"
 
 // Custom Callback Queue
 #include <ros/callback_queue.h>
@@ -194,10 +195,14 @@ namespace gazebo
 
     /// ROS Stuff
     protected:
+    std::string odometry_topic_, odometry_frame_, robot_base_frame_;
+
     // ROS stuff
     ros::NodeHandle *rosnode_;
     ros::Subscriber cmd_vel_subscriber_;
     std::string robot_namespace_;
+    ros::Publisher odom_publisher_;
+    std::unique_ptr<tf::TransformBroadcaster> tf_bc_;
 
     // Custom Callback Queue
     ros::CallbackQueue queue_;
@@ -207,6 +212,13 @@ namespace gazebo
     // ROS methods
     /// \brief Cmd vel from ROS callback
     void cmdVelCallback(const geometry_msgs::TwistConstPtr &msg);
+
+    /// \brief publishes ROS odometry. And associated attributes
+    void publishOdometry(const ignition::math::Pose3d &pose,
+                        const ignition::math::Vector3d &lin_vel,
+                        const ignition::math::Vector3d &ang_vel);
+    ros::Time last_time;
+    ignition::math::Pose3d last_pose;
   };
 }
 #endif

@@ -22,6 +22,8 @@
 #include "gazebo/transport/transport.hh"
 #include "nix_simulator/TrackedVehiclePluginROS.hh"
 
+#include <nav_msgs/Odometry.h>
+
 using namespace gazebo;
 
 namespace gazebo
@@ -99,6 +101,38 @@ void TrackedVehiclePluginROS::Load(physics::ModelPtr _model,
         _sdf->GetElement("robotNamespace")->Get<std::string>() + "/";
     }
 
+  this->odometry_topic_ = "odom";
+    if (!_sdf->HasElement("odometryTopic")) {
+      ROS_WARN("GazeboRosWheelsPiston Plugin (ns = %s) missing <odometryTopic>, defaults to \"%s\"",
+          this->robot_namespace_.c_str(), this->odometry_topic_.c_str());
+    } else {
+      this->odometry_topic_ = _sdf->GetElement("odometryTopic")->Get<std::string>();
+    }
+
+  this->odometry_frame_ = "odom";
+  if (!_sdf->HasElement("odometryFrame")) {
+    ROS_WARN("GazeboRosWheelsPiston Plugin (ns = %s) missing <odometryFrame>, defaults to \"%s\"",
+        this->robot_namespace_.c_str(), this->odometry_frame_.c_str());
+  } else {
+    this->odometry_frame_ = _sdf->GetElement("odometryFrame")->Get<std::string>();
+  }
+
+  this->robot_base_frame_ = "base_footprint";
+  if (!_sdf->HasElement("robotBaseFrame")) {
+    ROS_WARN("GazeboRosWheelsPiston Plugin (ns = %s) missing <robotBaseFrame>, defaults to \"%s\"",
+        this->robot_namespace_.c_str(), this->robot_base_frame_.c_str());
+  } else {
+    this->robot_base_frame_ = _sdf->GetElement("robotBaseFrame")->Get<std::string>();
+  }
+
+  // this->update_rate_ = 100.0;
+  // if (!_sdf->HasElement("updateRate")) {
+  //   ROS_WARN("GazeboRosWheelsPiston Plugin (ns = %s) missing <updateRate>, defaults to %f",
+  //       this->robot_namespace_.c_str(), this->update_rate_);
+  // } else {
+  //   this->update_rate_ = _sdf->GetElement("updateRate")->Get<double>();
+  // }
+
     // Make sure the ROS node for Gazebo has already been initialized                                                                                    
   if (!ros::isInitialized())
   {
@@ -108,6 +142,9 @@ void TrackedVehiclePluginROS::Load(physics::ModelPtr _model,
   }
 
   rosnode_ = new ros::NodeHandle( this->robot_namespace_);
+
+  tf_bc_.reset(new tf::TransformBroadcaster());
+
 
   // ROS: Subscribe to the velocity command topic 
   ros::SubscribeOptions so =
@@ -120,6 +157,8 @@ void TrackedVehiclePluginROS::Load(physics::ModelPtr _model,
   this->callback_queue_thread_ = 
       boost::thread(boost::bind(&TrackedVehiclePluginROS::QueueThread, this));
 
+  // ROS: Publish odometry
+  odom_publisher_ = rosnode_ ->advertise<nav_msgs::Odometry>(odometry_topic_,1);
 
   // Load parameters from SDF plugin contents.
   this->LoadParam(_sdf, "robot_namespace", this->dataPtr->robotNamespace,
@@ -367,5 +406,58 @@ void TrackedVehiclePluginROS::QueueThread() {
     while (rosnode_->ok()) {
       queue_.callAvailable(ros::WallDuration(timeout));
     }
+}
+
+void TrackedVehiclePluginROS::publishOdometry(const ignition::math::Pose3d &pose,
+                        const ignition::math::Vector3d &lin_vel,
+                        const ignition::math::Vector3d &ang_vel) {
+  // Make sure it is initialized
+  ros::Time curr_time = ros::Time::now();
+  if (last_time.sec != 0) {
+    double step_time = (curr_time - last_time).toSec();
+
+
+    tf::Quaternion qt(pose.Rot().X(), pose.Rot().Y(), pose.Rot().Z(), pose.Rot().W());
+    tf::Vector3 vt(pose.Pos().X(), pose.Pos().Y(), pose.Pos().Z());
+    tf::Transform base_footprint_to_odom(qt, vt);
+
+    tf_bc_->sendTransform(
+            tf::StampedTransform(base_footprint_to_odom, curr_time,
+                                 odometry_frame_, robot_base_frame_));
+
+    // publish odom topic
+    nav_msgs::Odometry odom;
+    odom.pose.pose.position.x = vt.x();
+    odom.pose.pose.position.y = vt.y();
+
+    odom.pose.pose.orientation.x = qt.x();
+    odom.pose.pose.orientation.y = qt.y();
+    odom.pose.pose.orientation.z = qt.z();
+    odom.pose.pose.orientation.w = qt.w();
+    odom.pose.covariance[0] = 0.00001;
+    odom.pose.covariance[7] = 0.00001;
+    odom.pose.covariance[14] = 1000000000000.0;
+    odom.pose.covariance[21] = 1000000000000.0;
+    odom.pose.covariance[28] = 1000000000000.0;
+    odom.pose.covariance[35] = 0.001;
+
+    // get velocity in /odom frame
+    odom.twist.twist.angular.z = ang_vel.Z();
+
+    // convert velocity to child_frame_id (aka base_footprint)
+    double yaw = pose.Rot().Yaw();
+    odom.twist.twist.linear.x = cos(yaw) * lin_vel.X() + sin(yaw) * lin_vel.Y();
+    odom.twist.twist.linear.y = cos(yaw) * lin_vel.Y() - sin(yaw) * lin_vel.X();
+
+    odom.header.stamp = curr_time;
+    odom.header.frame_id = odometry_frame_;
+    odom.child_frame_id = robot_base_frame_;
+
+    odom_publisher_.publish(odom);
+  }
+
+  // Actualize fields
+  last_time = curr_time;
+  last_pose = pose;
 }
 

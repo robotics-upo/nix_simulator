@@ -330,6 +330,11 @@ void SimpleTrackedVehiclePluginROS::DriveTracks(
   const auto centerOfRotation =
     (bodyYAxisGlobal * desiredRotationRadiusSigned) + bodyPose.Pos();
 
+    // Publish ROS odometry
+  const auto bodyLinearVel = this->body->WorldLinearVel();
+  const auto bodyAngularVel = this->body->WorldAngularVel();
+    publishOdometry(bodyPose, bodyLinearVel, bodyAngularVel);
+
   ////////////////////////////////////////////////////////////////////////
   // For each contact, compute the friction force direction and speed of
   // surface movement.
