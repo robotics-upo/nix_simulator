@@ -32,7 +32,7 @@ This package has been designed and tested in a x86_64 machine under a Linux 18.0
 rosrun nix_simulator updateDepends.sh
 ```
 
-3- Build your catkin repository (catkin_make)
+3- Build your catkin repository (catkin_make). It will automatically call download_mesh.sh and duplicate_sensor.sh scripts which are self-explanatory (please refer to the scripts to know the details).
 
 ```
 roscd 
