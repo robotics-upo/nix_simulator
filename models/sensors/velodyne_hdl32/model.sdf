@@ -94,7 +94,7 @@
         </ray>
         <plugin name="gazebo_ros_laser_controller" filename="libgazebo_ros_velodyne_gpu_laser.so">
           <!-- <robotNamespace>siar</robotNamespace>  -->
-          <topicName>os1_cloud_node/points</topicName>
+          <topicName>os1_cloud_node/points_non_dense</topicName>
           <frameName>os1_sensor</frameName>
           <min_range>0.5</min_range>
           <max_range>20.0</max_range>
