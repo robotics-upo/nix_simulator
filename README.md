@@ -9,6 +9,11 @@ Stand-alone package with the developments of the new nix-simulator. It has the f
 
 The developments of this package have been funded by the European Commision under the NIx project of the Esmera innitiative. For more information please follow the link: http://www.esmera-project.eu/nix/
 
+
+<p align="center">
+    <img src="resources/sim_preview.gif" width="900">
+</p>
+
 ## Installation
 
 In this section you will find the installation instructions for making it work. Next section (prerequisites) tells you the environment in which the package has been tested.
@@ -48,6 +53,51 @@ roslaunch nix_simulator nix_world.launch
 ```
 
 It will launch the NIX prototype inside the mockup given by the ESMERA consortium. The plaform accepts input command velocities with the ROS 'cmd_vel' topic. It also offers odometry measures in the 'odom' topic (to this date the estimation is the ground truth pose).
+
+## Optional extras
+
+### Raposa Marker
+
+In order to take better snapshots of the simulation in RViz, you can launch the environment with the following modification
+
+```
+roslaunch nix_simulator nix_world.launch launch_raposa_marker:=true
+```
+
+but you will need to download and compile the package first:
+
+```
+git clone https://github.com/robotics-upo/raposa_marker.git
+```
+
+### Teleop
+
+By default there is no telepo included in the simulator, but you can the standard one [teleop_twist_joy](http://wiki.ros.org/teleop_twist_joy) or the [teleop_twist_keyboard](http://wiki.ros.org/teleop_twist_keyboard) depending if you have a a joystick or not. To install them
+
+```
+sudo apt-get install ros-$ROS_DISTRO-teleop-twist-joy
+```
+or 
+
+```
+sudo apt-get install ros-$ROS_DISTRO-teleop-twist-keyboard
+```
+
+to launch the simulation with the teleop simply run:
+
+```
+roslaunch nix_simulator nix_world.launch joy_teleop:=true
+```
+
+By now it's only configured for joy teleoperation, if you want to use the keyboard you have to launch it by yourself. Note that to enable the teleoperation you should use the joystick with the R1 button pressed. 
+
+### Rviz Layout
+
+You can also launch the simulation along with rviz, in the viz/ folder you can find the configuration that will be used launching the world with the argument ```rviz:=true```.
+
+## Performance Notes
+
+Using a MSI GE63 Laptop we have achieve a real time factor of 0.8 ~ 0.9 suscribing to the five point clouds from the lidar and cameras simultaneously. This is mostly due to the use of the GPU. If you have any suggestion about improving the performance, tell us!
 
 ## TODO
 
