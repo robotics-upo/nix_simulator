@@ -91,6 +91,26 @@ roslaunch nix_simulator nix_world.launch joy_teleop:=true
 
 By now it's only configured for joy teleoperation, if you want to use the keyboard you have to launch it by yourself. Note that to enable the teleoperation you should use the joystick with the R1 button pressed. 
 
+### Mapping 
+
+To launch the mapping features you will need two more packages, the LOAM(branch final) and the nix_launchers (branch simulation_features). In order to compile and run the loam package you need to install [ceres solver](http://ceres-solver.org/installation.html) before.
+
+```
+git clone https://github.com/robotics-upo/a-loam.git
+```
+And
+```
+git clone https://github.com/robotics-upo/nix_launchers.git
+```
+
+Download and compile them in your workspace and launch the whole system with:
+
+```
+roslaunch nix_simulator nix_world.launch joy_teleop:=true launch_raposa_marker:=true rviz:=true mapping_system:=true
+```
+
+It will also launch the teleop, the raposa marker for rviz, the rviz mapping layout.
+
 ### Rviz Layout
 
 You can also launch the simulation along with rviz, in the viz/ folder you can find the configuration that will be used launching the world with the argument ```rviz:=true```.
