@@ -2,7 +2,7 @@
 n="pico_flexx"
 
 # Download the mesh resources:
-for sensor in ${n}_l ${n}_r ${n}_f ${n}_b 
+for sensor in front_${n} right_${n} left_${n} back_${n} 
 do
     echo Adding sensor $sensor
     mkdir -p models/sensors/$sensor
