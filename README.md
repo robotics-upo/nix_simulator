@@ -152,8 +152,8 @@ Using a MSI GE63 Laptop we have achieve a real time factor of 0.8 ~ 0.9 suscribi
 
 The following characteristics are still pending:
 
--[] Add a thermal and a RGB camera to the sensing head
--[] Add noise to the odometry estimation
--[] Add motor to the flipper in the raposaNG platform
--[] Add simulated imu, mainly to use with MCL3D
--[] Add more noise to odometry
+ - [ ]Add a thermal and a RGB camera to the sensing head
+ - [ ]Add noise to the odometry estimation
+ - [ ]Add motor to the flipper in the raposaNG platform
+ - [ ]Add simulated imu, mainly to use with MCL3D
+ - [ ]Add more noise to odometry
