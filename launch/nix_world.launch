@@ -4,15 +4,27 @@
   <arg name="z_pos" default="0.3"/>
   <arg name="yaw" default="1.57"/>
 
-  <arg name="launch_raposa_marker" default="false"/>
-  <arg name="joy_teleop" default="false"/>
-  <arg name="rviz"        default="false"/>
+  <arg name="launch_raposa_marker" default="true"/>
+  <arg name="joy_teleop" default="true"/>
+  <arg name="rviz"        default="true"/>
+  <arg name="use_gazebo_ground_truth" default="false"/>
+
   <arg name="navigation_system" default="false"/>
+  <arg name="localization_system" default="false"/>
+  <arg name="localization_system" value="true" if="$(arg navigation_system)"/>
+
   <arg name="mapping_system" default="false"/>
   <arg name="launch_aruco_mapping"  default="false"/>
 
-  <arg name="viz_file" default="basic_sensors" if="$(eval not arg('mapping_system') and not arg('navigation_system'))"/>
+  <!-- Initial position for the localization system -->
+  <arg name="initial_x"  default="2.14"/>
+  <arg name="initial_y"  default="4.36"/>
+  <arg name="initial_z"  default="1"/>
+  <arg name="initial_a"  default="1.57"/>
+
+  <arg name="viz_file" default="basic_sensors" if="$(eval not arg('mapping_system') and not arg('navigation_system') and not arg('localization_system'))"/>
   <arg name="viz_file" default="mapping" if="$(arg mapping_system)"/>
+  <arg name="viz_file" default="localization" if="$(eval arg('localization_system') and not arg('navigation_system'))"/>
   <arg name="viz_file" default="navigation" if="$(arg navigation_system)"/>
 
   <env name="GAZEBO_MODEL_PATH" value="$(find nix_simulator)/models/sensors:$(find nix_simulator)/models:$(optenv GAZEBO_MODEL_PATH)"/>
@@ -47,15 +59,19 @@
   <node pkg="rviz" name="rviz" type="rviz" args="-d $(find nix_simulator)/viz/$(arg viz_file).rviz" if="$(arg rviz)"/>
 
   <!-- Launch navigation system launch from the nix_launchers package -->
-
-
   <node pkg="timed_roslaunch" type="timed_roslaunch.sh"
       args="10 nix_launchers mapping.launch simulation:=true map2d:=false launch_aruco:=$(arg launch_aruco_mapping)"
       name="mapping_system" output="screen" if="$(arg mapping_system)">
   </node>
 
-  <include file="$(find nix_launchers)/launch/navigation_system.launch" if="$(arg navigation_system)">
-    <arg name="simulation" value="true"/>
-  </include>
+  <node pkg="timed_roslaunch" type="timed_roslaunch.sh"
+      args="10 nix_launchers mcl3d.launch map_path:=$(dirname)/../resources/maps/sim/sim_full.bt use_fid:=false 
+      initial_x:=$(arg initial_x) initial_y:=$(arg initial_y) initial_z:=$(arg initial_z) initial_a:=$(arg initial_a)"
+      name="mapping_system" output="screen" if="$(eval arg('navigation_system') or arg('localization_system') and not arg('use_gazebo_ground_truth'))">
+  </node>
+
+  <!-- <include file="$(find nix_launchers)/launch/navigation_system.launch" if="$(arg navigation_system)"> -->
+    <!-- <arg name="simulation" value="true"/> -->
+  <!-- </include> -->
 
 </launch>

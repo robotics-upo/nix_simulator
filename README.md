@@ -93,7 +93,7 @@ By now it's only configured for joy teleoperation, if you want to use the keyboa
 
 ### Mapping 
 
-To launch the mapping features you will need two more packages, the LOAM(branch final) and the nix_launchers (branch simulation_features). In order to compile and run the loam package you need to install [ceres solver](http://ceres-solver.org/installation.html) before.
+To launch the mapping features you will need three more packages, the LOAM(branch final) and the nix_launchers (branch simulation_features). In order to compile and run the loam package you need to install [ceres solver](http://ceres-solver.org/installation.html) before. 
 
 ```
 git clone -b final https://github.com/robotics-upo/a-loam.git
@@ -101,6 +101,10 @@ git clone -b final https://github.com/robotics-upo/a-loam.git
 And
 ```
 git clone -b simulation_features https://github.com/robotics-upo/nix_launchers.git
+```
+And the timed roslaunch package:
+```
+sudo apt-get install ros-melodic-timed-roslaunch
 ```
 
 Download and compile them in your workspace and launch the whole system with:
@@ -115,6 +119,26 @@ rosrun nix_launchers save_maps.sh <map_name> <projected_map_topic> <folder_to_sa
 ```
 
 Where ```<projected_map_topic>``` can be ```/p_map``` or ```/projected_map``` and ```<folder_to_save_maps>``` the *full* path of the folder where you want to save your maps.
+### 3D MCL Localization system 
+
+<p align="center">
+    <img src="resources/localization_demo.gif" width="900">
+</p>
+You can also play launch the 3D Monte Carlo localization system along with the simulator. First, you need to download and compile the package in your workspace:
+
+```
+git clone -b feature_gps2 https://github.com/robotics-upo/mcl3d.git && git clone https://github.com/robotics-upo/range_msgs.git
+```
+
+It will clone the package and the range_msgs dependency. 
+
+To launch the simulation with the localization system:
+
+```
+roslaunch nix_simulator nix_world.launch localization_system:=true
+```
+
+It will launch the mcl3d, a custom RViz layout for visualizing the clouds and the pose array, it will launch the teleop and raposa marker.
 
 ### Rviz Layout
 
@@ -128,6 +152,8 @@ Using a MSI GE63 Laptop we have achieve a real time factor of 0.8 ~ 0.9 suscribi
 
 The following characteristics are still pending:
 
-- Add a thermal and a RGB camera to the sensing head
-- Add noise to the odometry estimation
-- Add motor to the flipper in the raposaNG platform
+-[] Add a thermal and a RGB camera to the sensing head
+-[] Add noise to the odometry estimation
+-[] Add motor to the flipper in the raposaNG platform
+-[] Add simulated imu, mainly to use with MCL3D
+-[] Add more noise to odometry
