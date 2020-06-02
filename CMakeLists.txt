@@ -12,6 +12,9 @@ execute_process(COMMAND "./scripts/duplicate_sensors.sh"
                 WORKING_DIRECTORY ${PROJECT_SOURCE_DIR} )
 execute_process(COMMAND "./scripts/download_mesh.sh" 
                 WORKING_DIRECTORY ${PROJECT_SOURCE_DIR} )
+execute_process(COMMAND "./scripts/get_maps.sh" 
+                WORKING_DIRECTORY ${PROJECT_SOURCE_DIR} )          
+
 find_package(catkin REQUIRED COMPONENTS
   gazebo_plugins
   gazebo_ros
