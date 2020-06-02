@@ -6,7 +6,7 @@
 
   <arg name="launch_raposa_marker" default="true"/>
   <arg name="joy_teleop" default="true"/>
-  <arg name="rviz"        default="true"/>
+  <arg name="rviz" default="true"/>
   <arg name="use_gazebo_ground_truth" default="false"/>
 
   <arg name="navigation_system" default="false"/>
@@ -14,14 +14,29 @@
   <arg name="localization_system" value="true" if="$(arg navigation_system)"/>
 
   <arg name="mapping_system" default="false"/>
-  <arg name="launch_aruco_mapping"  default="false"/>
+  <arg name="launch_aruco_mapping" default="false"/>
 
   <!-- Initial position for the localization system -->
-  <arg name="initial_x"  default="2.14"/>
-  <arg name="initial_y"  default="4.36"/>
-  <arg name="initial_z"  default="1"/>
-  <arg name="initial_a"  default="1.57"/>
+  <arg name="initial_x" default="2.14"/>
+  <arg name="initial_y" default="4.36"/>
+  <arg name="initial_z" default="1"/>
+  <arg name="initial_a" default="1.57"/>
 
+  <!-- Twist Mux Related config -->
+  <arg name="joy_vel_in" default="input_joy/cmd_vel"/>
+  <arg name="joy_vel_out" default="joy_vel"/>
+
+  <arg name="cmd_vel_out" default="cmd_vel"/>
+
+  <arg name="config_locks" default="$(dirname)/../config/twist_mux_locks.yaml"/>
+  <arg name="config_topics" default="$(dirname)/../config/twist_mux_topics.yaml"/>
+
+  <!-- Teleop Related Args -->
+  <arg name="joy_config" default="xbox" />
+  <arg name="joy_dev" default="/dev/input/js0" />
+  <arg name="config_filepath" default="$(dirname)/../config/$(arg joy_config).config.yaml" />
+  
+  <!-- Depending on the system you launch along with the simulator, you will get different rviz layouts -->
   <arg name="viz_file" default="basic_sensors" if="$(eval not arg('mapping_system') and not arg('navigation_system') and not arg('localization_system'))"/>
   <arg name="viz_file" default="mapping" if="$(arg mapping_system)"/>
   <arg name="viz_file" default="localization" if="$(eval arg('localization_system') and not arg('navigation_system'))"/>
@@ -31,6 +46,7 @@
   <env name="GAZEBO_RESOURCE_PATH" value="${GAZEBO_RESOURCE_PATH}:$(find nix_simulator)/models"/>
   <arg name="world_file" default="nix_ramp.world"/>
 
+  <!-- Marsella MockUp World -->
   <include file="$(find nix_simulator)/launch/empty_world.launch">
     <arg name="world_name" value="$(find nix_simulator)/worlds/$(arg world_file)"/>
     <arg name="paused" value="false"/>
@@ -43,8 +59,22 @@
   </include>
 
   <node pkg="gazebo_ros" type="spawn_model" name="spawn_sdf" args="-sdf -model nix -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -Y $(arg yaw) -file $(find nix_simulator)/models/nix/nix.sdf" output="screen"/>
-
+  <!-- Static TF Frames of Cameras lidar etc TODO: Maybe it's better to use the frame launch inside nix_launchers....-->
   <include file="$(find nix_simulator)/launch/frames.launch"/>
+
+  <!-- Twist MUX -->
+  <node pkg="twist_mux" type="twist_mux" name="twist_mux" output="screen">
+    <remap from="cmd_vel_out" to="$(arg cmd_vel_out)"/>
+
+    <rosparam file="$(arg config_locks)" command="load"/>
+    <rosparam file="$(arg config_topics)" command="load"/>
+  </node>
+
+  <node pkg="twist_mux" type="twist_marker" name="twist_marker">
+    <remap from="twist" to="$(arg cmd_vel_out)"/>
+    <remap from="marker" to="twist_marker"/>
+  </node>
+
 
   <!-- Extra Dependencies -->
   <!-- Raposa Marker -->
@@ -52,26 +82,33 @@
 
   <!-- Joy teleop -->
 
-  <include file="$(find teleop_twist_joy)/launch/teleop.launch" if="$(arg joy_teleop)">
-    <arg name="joy_config" value="xbox"/>
-  </include>
+  <node pkg="joy" type="joy_node" name="joy_node">
+    <param name="dev" value="$(arg joy_dev)" />
+    <param name="deadzone" value="0.3" />
+    <param name="autorepeat_rate" value="20" />
+  </node>
 
+  <node pkg="teleop_twist_joy" name="teleop_twist_joy" type="teleop_node">
+    <rosparam command="load" file="$(arg config_filepath)" />
+    <remap from="cmd_vel" to="joy_vel"/>
+  </node>
+
+
+  <!-- RViz -->
   <node pkg="rviz" name="rviz" type="rviz" args="-d $(find nix_simulator)/viz/$(arg viz_file).rviz" if="$(arg rviz)"/>
 
-  <!-- Launch navigation system launch from the nix_launchers package -->
-  <node pkg="timed_roslaunch" type="timed_roslaunch.sh"
-      args="10 nix_launchers mapping.launch simulation:=true map2d:=false launch_aruco:=$(arg launch_aruco_mapping)"
-      name="mapping_system" output="screen" if="$(arg mapping_system)">
+  <!-- Mapping system launch from the nix_launchers package -->
+  <node pkg="timed_roslaunch" type="timed_roslaunch.sh" args="10 nix_launchers mapping.launch simulation:=true map2d:=false launch_aruco:=$(arg launch_aruco_mapping)" name="mapping_system" output="screen" if="$(arg mapping_system)">
   </node>
 
-  <node pkg="timed_roslaunch" type="timed_roslaunch.sh"
-      args="10 nix_launchers mcl3d.launch map_path:=$(dirname)/../resources/maps/sim/sim_full.bt use_fid:=false 
-      initial_x:=$(arg initial_x) initial_y:=$(arg initial_y) initial_z:=$(arg initial_z) initial_a:=$(arg initial_a)"
-      name="mapping_system" output="screen" if="$(eval arg('navigation_system') or arg('localization_system') and not arg('use_gazebo_ground_truth'))">
+  <!-- Localization System -->
+  <node pkg="timed_roslaunch" type="timed_roslaunch.sh" args="10 nix_launchers mcl3d.launch map_path:=$(dirname)/../resources/maps/sim/sim_full.bt use_fid:=false initial_x:=$(arg initial_x) initial_y:=$(arg initial_y) initial_z:=$(arg initial_z) initial_a:=$(arg initial_a)" name="mapping_system" output="screen" if="$(eval arg('navigation_system') or arg('localization_system') and not arg('use_gazebo_ground_truth'))">
   </node>
 
-  <!-- <include file="$(find nix_launchers)/launch/navigation_system.launch" if="$(arg navigation_system)"> -->
-    <!-- <arg name="simulation" value="true"/> -->
-  <!-- </include> -->
+  <!-- Navigation System -->
+  <include file="$(find nix_launchers)/launch/navigation_system.launch" if="$(arg navigation_system)">
+    <arg name="simulation" value="true"/>
+  </include>
+
 
 </launch>
