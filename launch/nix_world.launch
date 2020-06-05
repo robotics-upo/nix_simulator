@@ -19,7 +19,7 @@
   <!-- Initial position for the localization system -->
   <arg name="initial_x" default="2.14"/>
   <arg name="initial_y" default="4.36"/>
-  <arg name="initial_z" default="1"/>
+  <arg name="initial_z" default="0"/>
   <arg name="initial_a" default="1.57"/>
 
   <!-- Twist Mux Related config -->
