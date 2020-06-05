@@ -155,5 +155,5 @@ The following characteristics are still pending:
  - [ ] Add a thermal and a RGB camera to the sensing head
  - [ ] Add noise to the odometry estimation
  - [ ] Add motor to the flipper in the raposaNG platform
+ - [ ] Check why the floor does not appear in the map, because of LOAM, because of OctoMap...?
  - [ ] Add simulated imu, mainly to use with MCL3D
- - [ ] Add more noise to odometry
