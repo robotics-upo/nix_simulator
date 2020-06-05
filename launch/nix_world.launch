@@ -10,8 +10,8 @@
   <arg name="use_gazebo_ground_truth" default="false"/>
 
   <arg name="navigation_system" default="false"/>
-  <arg name="localization_system" default="false"/>
-  <arg name="localization_system" value="true" if="$(arg navigation_system)"/>
+  <arg name="localization_system" default="false" unless="$(arg navigation_system)"/>
+  <arg name="localization_system" default="true" if="$(arg navigation_system)"/>
 
   <arg name="mapping_system" default="false"/>
   <arg name="launch_aruco_mapping" default="false"/>
@@ -106,6 +106,8 @@
   <!-- Navigation System -->
   <include file="$(find nix_launchers)/launch/navigation_system.launch" if="$(arg navigation_system)">
     <arg name="simulation" value="true"/>
+    <arg name="map_path" value="$(find nix_simulator)/resources/maps/sim"/>
+    <arg name="map_name" value="sim_2d_projected"/>
   </include>
 
 
