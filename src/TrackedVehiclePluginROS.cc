@@ -103,7 +103,7 @@ void TrackedVehiclePluginROS::Load(physics::ModelPtr _model,
 
   this->odometry_topic_ = "odom";
     if (!_sdf->HasElement("odometryTopic")) {
-      ROS_WARN("GazeboRosWheelsPiston Plugin (ns = %s) missing <odometryTopic>, defaults to \"%s\"",
+      ROS_WARN("TrackedVehiclePluginROS Plugin (ns = %s) missing <odometryTopic>, defaults to \"%s\"",
           this->robot_namespace_.c_str(), this->odometry_topic_.c_str());
     } else {
       this->odometry_topic_ = _sdf->GetElement("odometryTopic")->Get<std::string>();
@@ -111,7 +111,7 @@ void TrackedVehiclePluginROS::Load(physics::ModelPtr _model,
 
   this->odometry_frame_ = "odom";
   if (!_sdf->HasElement("odometryFrame")) {
-    ROS_WARN("GazeboRosWheelsPiston Plugin (ns = %s) missing <odometryFrame>, defaults to \"%s\"",
+    ROS_WARN("TrackedVehiclePluginROS Plugin (ns = %s) missing <odometryFrame>, defaults to \"%s\"",
         this->robot_namespace_.c_str(), this->odometry_frame_.c_str());
   } else {
     this->odometry_frame_ = _sdf->GetElement("odometryFrame")->Get<std::string>();
@@ -119,19 +119,11 @@ void TrackedVehiclePluginROS::Load(physics::ModelPtr _model,
 
   this->robot_base_frame_ = "base_link";
   if (!_sdf->HasElement("robotBaseFrame")) {
-    ROS_WARN("GazeboRosWheelsPiston Plugin (ns = %s) missing <robotBaseFrame>, defaults to \"%s\"",
+    ROS_WARN("TrackedVehiclePluginROS Plugin (ns = %s) missing <robotBaseFrame>, defaults to \"%s\"",
         this->robot_namespace_.c_str(), this->robot_base_frame_.c_str());
   } else {
     this->robot_base_frame_ = _sdf->GetElement("robotBaseFrame")->Get<std::string>();
   }
-
-  // this->update_rate_ = 100.0;
-  // if (!_sdf->HasElement("updateRate")) {
-  //   ROS_WARN("GazeboRosWheelsPiston Plugin (ns = %s) missing <updateRate>, defaults to %f",
-  //       this->robot_namespace_.c_str(), this->update_rate_);
-  // } else {
-  //   this->update_rate_ = _sdf->GetElement("updateRate")->Get<double>();
-  // }
 
     // Make sure the ROS node for Gazebo has already been initialized                                                                                    
   if (!ros::isInitialized())
