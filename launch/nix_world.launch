@@ -10,25 +10,20 @@
   <arg name="use_gazebo_ground_truth" default="false"/>
 
   <arg name="navigation_system" default="false"/>
-  <arg name="localization_system" default="false"/>
-  <arg name="localization_system" value="true" if="$(arg navigation_system)"/>
+  <arg name="localization_system" default="false" unless="$(arg navigation_system)"/>
+  <arg name="localization_system" default="true" if="$(arg navigation_system)"/>
 
   <arg name="mapping_system" default="false"/>
   <arg name="launch_aruco_mapping" default="false"/>
 
   <!-- Initial position for the localization system -->
-  <arg name="initial_x" default="2.14"/>
-  <arg name="initial_y" default="4.36"/>
-  <arg name="initial_z" default="1"/>
+  <arg name="initial_x" default="2.15"/>
+  <arg name="initial_y" default="4.26"/>
+  <arg name="initial_z" default="0"/>
   <arg name="initial_a" default="1.57"/>
 
   <!-- Twist Mux Related config -->
-  <arg name="joy_vel_in" default="input_joy/cmd_vel"/>
-  <arg name="joy_vel_out" default="joy_vel"/>
-
   <arg name="cmd_vel_out" default="cmd_vel"/>
-
-  <arg name="config_locks" default="$(dirname)/../config/twist_mux_locks.yaml"/>
   <arg name="config_topics" default="$(dirname)/../config/twist_mux_topics.yaml"/>
 
   <!-- Teleop Related Args -->
@@ -42,6 +37,7 @@
   <arg name="viz_file" default="localization" if="$(eval arg('localization_system') and not arg('navigation_system'))"/>
   <arg name="viz_file" default="navigation" if="$(arg navigation_system)"/>
 
+  <!-- Gazebo Environment variables -->
   <env name="GAZEBO_MODEL_PATH" value="$(find nix_simulator)/models/sensors:$(find nix_simulator)/models:$(optenv GAZEBO_MODEL_PATH)"/>
   <env name="GAZEBO_RESOURCE_PATH" value="${GAZEBO_RESOURCE_PATH}:$(find nix_simulator)/models"/>
   <arg name="world_file" default="nix_ramp.world"/>
@@ -59,14 +55,13 @@
   </include>
 
   <node pkg="gazebo_ros" type="spawn_model" name="spawn_sdf" args="-sdf -model nix -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -Y $(arg yaw) -file $(find nix_simulator)/models/nix/nix.sdf" output="screen"/>
+  
   <!-- Static TF Frames of Cameras lidar etc TODO: Maybe it's better to use the frame launch inside nix_launchers....-->
   <include file="$(find nix_simulator)/launch/frames.launch"/>
 
-  <!-- Twist MUX -->
+  <!-- Twist MUX: TODO In the future try to use same launch as the real robot-->
   <node pkg="twist_mux" type="twist_mux" name="twist_mux" output="screen">
     <remap from="cmd_vel_out" to="$(arg cmd_vel_out)"/>
-
-    <rosparam file="$(arg config_locks)" command="load"/>
     <rosparam file="$(arg config_topics)" command="load"/>
   </node>
 
@@ -76,29 +71,26 @@
   </node>
 
 
-  <!-- Extra Dependencies -->
+    <!--                    -->
+    <!--                    -->
+    <!-- Extra Dependencies -->
+    <!--                    -->
+    <!--                    -->
+
   <!-- Raposa Marker -->
   <node pkg="raposa_marker" name="raposa_marker" type="raposa_marker" if="$(arg launch_raposa_marker)"/>
 
   <!-- Joy teleop -->
-
-  <node pkg="joy" type="joy_node" name="joy_node">
-    <param name="dev" value="$(arg joy_dev)" />
-    <param name="deadzone" value="0.3" />
-    <param name="autorepeat_rate" value="20" />
-  </node>
-
-  <node pkg="teleop_twist_joy" name="teleop_twist_joy" type="teleop_node">
-    <rosparam command="load" file="$(arg config_filepath)" />
-    <remap from="cmd_vel" to="joy_vel"/>
-  </node>
-
+  <include file="$(dirname)/teleop.launch">
+    <arg name="joy_dev"  value="$(arg joy_dev)"/>
+    <arg name="config_filepath"  value="$(arg config_filepath)"/>
+  </include>
 
   <!-- RViz -->
   <node pkg="rviz" name="rviz" type="rviz" args="-d $(find nix_simulator)/viz/$(arg viz_file).rviz" if="$(arg rviz)"/>
 
   <!-- Mapping system launch from the nix_launchers package -->
-  <node pkg="timed_roslaunch" type="timed_roslaunch.sh" args="10 nix_launchers mapping.launch simulation:=true map2d:=false launch_aruco:=$(arg launch_aruco_mapping)" name="mapping_system" output="screen" if="$(arg mapping_system)">
+  <node pkg="timed_roslaunch" type="timed_roslaunch.sh" args="20 nix_launchers mapping.launch simulation:=true map2d:=false launch_aruco:=$(arg launch_aruco_mapping)" name="mapping_system" output="screen" if="$(arg mapping_system)">
   </node>
 
   <!-- Localization System -->
@@ -108,6 +100,8 @@
   <!-- Navigation System -->
   <include file="$(find nix_launchers)/launch/navigation_system.launch" if="$(arg navigation_system)">
     <arg name="simulation" value="true"/>
+    <arg name="map_path" value="$(find nix_simulator)/resources/maps/sim"/>
+    <arg name="map_name" value="sim_2d_projected"/>
   </include>
 
 

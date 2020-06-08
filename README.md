@@ -140,6 +140,34 @@ roslaunch nix_simulator nix_world.launch localization_system:=true
 
 It will launch the mcl3d, a custom RViz layout for visualizing the clouds and the pose array, it will launch the teleop and raposa marker.
 
+
+
+### Navigation Module
+
+<p align="center">
+    <img src="resources/nav_preview.gif" width="900">
+</p>
+
+Finally you can launch the whole navigation stack using the launchs located in the nix_launchers packages, but in the same way as the above modules. To try the navigation you should download the lazy_theta_star_planners and upo_path_tracker packages
+
+
+```
+git clone https://github.com/robotics-upo/lazy_theta_star_planners.git && git clone https://github.com/robotics-upo/upo_path_tracker.git
+```
+
+Now it's been tested with the marsella version(commit ID f2fa74285b1a53e6e4db403aad318ecfb85dbee6). To checkout to this version go to the lazy theta star planners folder and run:
+
+```
+git checkout f2fa74285b1a53e6e4db403aad318ecfb85dbee6
+```
+
+```
+roslaunch nix_simulator nix_world.launch localization_system:=true
+```
+
+To modify the configurations of the planners, you should go to the ```navigation_system.launch``` and related .yaml files from the nix_launchers packages. By default it's configured to received goal through RViz "2D Goal" button.
+
+
 ### Rviz Layout
 
 You can also launch the simulation along with rviz, in the viz/ folder you can find the configuration that will be used launching the world with the argument ```rviz:=true```.
