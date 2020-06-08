@@ -23,12 +23,7 @@
   <arg name="initial_a" default="1.57"/>
 
   <!-- Twist Mux Related config -->
-  <arg name="joy_vel_in" default="input_joy/cmd_vel"/>
-  <arg name="joy_vel_out" default="joy_vel"/>
-
   <arg name="cmd_vel_out" default="cmd_vel"/>
-
-  <arg name="config_locks" default="$(dirname)/../config/twist_mux_locks.yaml"/>
   <arg name="config_topics" default="$(dirname)/../config/twist_mux_topics.yaml"/>
 
   <!-- Teleop Related Args -->
@@ -67,7 +62,6 @@
   <!-- Twist MUX: TODO In the future try to use same launch as the real robot-->
   <node pkg="twist_mux" type="twist_mux" name="twist_mux" output="screen">
     <remap from="cmd_vel_out" to="$(arg cmd_vel_out)"/>
-    <rosparam file="$(arg config_locks)" command="load"/>
     <rosparam file="$(arg config_topics)" command="load"/>
   </node>
 
