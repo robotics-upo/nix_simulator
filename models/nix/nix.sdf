@@ -12,39 +12,54 @@
       <uri>model://nix_tower</uri>
       <pose frame=''> 0.12 0 0.18 0 0 0 </pose>
     </include>
-    <joint name="tower_joint" type="fixed">
+    <joint name="tower_joint" type="revolute">
       <child>nix_tower::base_link</child>
       <parent>raposaNG::base_link</parent>
      
       <pose>0.12 0 0.18 0 0 0</pose>
+      
+      <axis>
+        <limit>
+          <lower>-0.02</lower>
+          <upper>0.02</upper>
+        </limit>
+        <xyz>0 0 1</xyz>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+          <damping>0.3</damping>
+          <friction>2</friction>
+        </dynamics>
+      </axis>
+      
     </joint>
     
     <!-- Ouster Configuration-->
     <include>
       <uri>model://velodyne_hdl32</uri>
-      <pose frame=''> 0.15 0 0.38 0 0 0 </pose>
+      <pose frame=''> 0.13 0 0.42 0 0 0 </pose>
     </include>
     <joint name="velodyne_joint" type="fixed">
-      <child>velodyne::base</child>
+      <child>velodyne::top</child>
       <parent>nix_tower::plate</parent>
      
-      <pose>0.15 0 0.38 0 0 0</pose>
-    </joint>    
+      <pose>0.15 0 0.42 0 0 0</pose>
+    </joint>
 
     <!-- Pico Flexx Cameras -->
     <include>
       <uri>model://front_pico_flexx</uri>
-      <pose frame=''> 0.26 0 0.4 0 0.02 0 </pose>
+      <pose frame=''> 0.24 0 0.4 0 0.02 0 </pose>
     </include>
     <joint name="pico_flexx_f_joint" type="fixed">
       <child>front_pico_flexx::base_link</child>
       <parent>nix_tower::plate</parent>
       <pose>0.26 0 0.4 0 0 0</pose>
     </joint> 
-
+    
     <include>
       <uri>model://back_pico_flexx</uri>
-      <pose frame=''> 0.04 0 0.4 0 0.02 3.141592 </pose>
+      <pose frame=''> 0.02 0 0.4 0 0.02 3.141592 </pose>
     </include>
     <joint name="pico_flexx_b_joint" type="fixed">
       <child>back_pico_flexx::base_link</child>
@@ -54,7 +69,7 @@
 
     <include>
       <uri>model://left_pico_flexx</uri>
-      <pose frame=''> 0.15 0.11 0.4 0 0.25 1.5708 </pose>
+      <pose frame=''> 0.13 0.11 0.4 0 0.25 1.5708 </pose>
     </include>
     <joint name="pico_flexx_l_joint" type="fixed">
       <child>left_pico_flexx::base_link</child>
@@ -64,7 +79,7 @@
 
     <include>
       <uri>model://right_pico_flexx</uri>
-      <pose frame=''> 0.15 -0.11 0.4 0 0.25 -1.5708 </pose>
+      <pose frame=''> 0.13 -0.11 0.4 0 0.25 -1.5708 </pose>
     </include>
     <joint name="pico_flexx_r_joint" type="fixed">
       <child>right_pico_flexx::base_link</child>
@@ -74,12 +89,12 @@
 
     <include>
       <uri>model://wide_lens_camera</uri>
-      <pose frame=''> 0.26 -0.08 0.4 0 0 0 </pose>
+      <pose frame=''> 0.24 -0.08 0.4 0 0 0 </pose>
     </include>
     <joint name="wide_lens_camera_joint" type="fixed">
       <child>wide_lens_camera::base_link</child>
       <parent>nix_tower::plate</parent>
-      <pose>0.26 -0.08 0.4 0 0 0</pose>
+      <pose>0.24 -0.08 0.4 0 0 0</pose>
     </joint>
 
   </model>

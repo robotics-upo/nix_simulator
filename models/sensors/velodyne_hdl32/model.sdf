@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <sdf version="1.5">
   <model name="velodyne">
-    <link name="base">
+    <!-- <link name="base">
       <pose>0 0 0.029335 0 0 0</pose>
       <inertial>
         <mass>0.3</mass>
@@ -30,10 +30,10 @@
           </mesh>
         </geometry>
       </visual>
-    </link>
+    </link> -->
     
     <link name="top">
-      <pose>0 0 0.095455 0 0 0</pose>
+      <pose>0 0 0.036785 0 0 0</pose>
       <inertial>
         <mass>0.1</mass>
         <inertia>
@@ -103,18 +103,6 @@
       </sensor>
     </link>
 
-    <joint type="fixed" name="joint">
-      <pose>0 0 -0.036785 0 0 0</pose>
-      <parent>base</parent>
-      <child>top</child>
-      <!-- <axis>
-        <xyz>0 0 1</xyz>
-        <limit>
-          <lower>-10000000000000000</lower>
-          <upper>10000000000000000</upper>
-        </limit>
-      </axis> -->
-    </joint>
-
+    
   </model>
 </sdf>

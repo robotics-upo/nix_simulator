@@ -5,9 +5,16 @@
     <pose>0 0 0 0 0 0</pose>
     <link name="base_link">
       <gravity>true</gravity>
-      <kinematic>1</kinematic>
       <inertial>
         <mass>0.005</mass>
+        <inertia>
+          <ixx>0.000002047</ixx>
+          <iyy>0.000000143</iyy>
+          <izz>0.000001949</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
       </inertial>
       <collision name="collision">
         <geometry>

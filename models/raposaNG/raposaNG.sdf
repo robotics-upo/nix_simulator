@@ -75,9 +75,9 @@
                     <ixx>0.031391</ixx>
                     <ixy>0</ixy>
                     <ixz>0</ixz>
-                    <iyy>0.122554</iyy>
+                    <iyy>0.182731</iyy>
                     <iyz>1.5e-05</iyz>
-                    <izz>0.142731</izz>
+                    <izz>0.162554</izz>
                 </inertia>
             </inertial>
             <collision name='left_track_collision'>
@@ -191,9 +191,9 @@
                     <ixx>0.031391</ixx>
                     <ixy>0</ixy>
                     <ixz>0</ixz>
-                    <iyy>0.122554</iyy>
+                    <iyy>0.182731</iyy>
                     <iyz>1.5e-05</iyz>
-                    <izz>0.142731</izz>
+                    <izz>0.162554</izz>
                 </inertia>
             </inertial>
             <collision name='right_track_collision'>
