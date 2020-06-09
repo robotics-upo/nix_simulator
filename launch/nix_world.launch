@@ -12,7 +12,7 @@
   <arg name="navigation_system" default="false"/>
   <arg name="localization_system" default="false" unless="$(arg navigation_system)"/>
   <arg name="localization_system" default="true" if="$(arg navigation_system)"/>
-
+  <arg name="launch_trees"  default="true"/>
   <arg name="mapping_system" default="false"/>
   <arg name="launch_aruco_mapping" default="false"/>
 
@@ -104,5 +104,6 @@
     <arg name="map_name" value="sim_2d_projected"/>
   </include>
 
+  <include file="$(dirname)/behavior_tree.launch" if="$(arg launch_trees)"/>
 
 </launch>
