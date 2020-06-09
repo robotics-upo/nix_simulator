@@ -1,0 +1,7 @@
+- git: {local-name: nix_launchers, uri: 'https://github.com/robotics-upo/nix_launchers.git', version: simulation_features}
+- git: {local-name: raposa_marker, uri: 'https://github.com/robotics-upo/raposa_marker.git', version: master}
+- git: {local-name: a-loam, uri: 'https://github.com/robotics-upo/a-loam.git', version: final}
+- git: {local-name: mcl3d, uri: 'https://github.com/robotics-upo/mcl3d.git', version: feature_gps2}
+- git: {local-name: range_msgs, uri: 'https://github.com/robotics-upo/range_msgs.git', version: master}
+- git: {local-name: upo_path_tracker, uri: 'https://github.com/robotics-upo/upo_path_tracker.git', version: master}
+- git: {local-name: lazy_theta_star_planners, uri: 'https://github.com/robotics-upo/lazy_theta_star_planners.git', version: master}
