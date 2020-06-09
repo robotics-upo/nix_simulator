@@ -26,6 +26,7 @@ This package has been designed and tested in a x86_64 machine under a Linux 18.0
 - Gazebo ROS Package
 - Gazebo plugins package for ROS
 - Velodyne Gazebo plugin for ROS
+- Standard teleop joy package of ROS
 
 ### Instalation steps:
 
@@ -56,6 +57,13 @@ It will launch the NIX prototype inside the mockup given by the ESMERA consortiu
 
 ## Optional extras
 
+There are some of our packages that can be installed to give autonomy and refine the simulation results.
+We provide you a convenient rosinstall file that automatically downloads our github dependencies. To use it, go to the source directory of your workspace and type:
+
+```
+rosinstall . nix_simulator/nix_simulator.rosinstall
+```
+
 ### Raposa Marker
 
 In order to take better snapshots of the simulation in RViz, you can launch the environment with the following modification
@@ -72,18 +80,7 @@ git clone https://github.com/robotics-upo/raposa_marker.git
 
 ### Teleop
 
-By default there is no telepo included in the simulator, but you can the standard one [teleop_twist_joy](http://wiki.ros.org/teleop_twist_joy) or the [teleop_twist_keyboard](http://wiki.ros.org/teleop_twist_keyboard) depending if you have a a joystick or not. To install them
-
-```
-sudo apt-get install ros-$ROS_DISTRO-teleop-twist-joy
-```
-or 
-
-```
-sudo apt-get install ros-$ROS_DISTRO-teleop-twist-keyboard
-```
-
-to launch the simulation with the teleop simply run:
+To launch the simulation with the teleop simply run:
 
 ```
 roslaunch nix_simulator nix_world.launch joy_teleop:=true
