@@ -1,4 +1,7 @@
 <launch>
+  <env name="ROSCONSOLE_CONFIG_FILE"
+       value="$(find nix_simulator)/config/rosconsole.conf"/>
+
   <arg name="x_pos" default="2.0"/>
   <arg name="y_pos" default="9.67"/>
   <arg name="z_pos" default="0.3"/>
