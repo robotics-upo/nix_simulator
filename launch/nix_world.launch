@@ -19,6 +19,7 @@
   <arg name="mapping_system" default="false"/>
   <arg name="launch_aruco_mapping" default="false"/>
 
+  <arg name="use_aloam_odometry"  default="false"/>
   <!-- Initial position for the localization system -->
   <arg name="initial_x" default="2.15"/>
   <arg name="initial_y" default="4.26"/>
@@ -54,7 +55,8 @@
     <arg name="headless" value="false"/>
     <arg name="debug" value="false"/>
     <arg name="verbose" value="false"/>
-    <arg name="remap_tf" value="$(arg mapping_system)"/>
+    <!-- Don't publish gazebo tf if we are getting the odometry tf from the loam, when mapping or navigating if using loam odometry -->
+    <arg name="remap_tf" value="$(eval arg('mapping_system') or arg('use_aloam_odometry') )"/>
   </include>
 
   <node pkg="gazebo_ros" type="spawn_model" name="spawn_sdf" args="-sdf -model nix -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -Y $(arg yaw) -file $(find nix_simulator)/models/nix/nix.sdf" output="screen"/>
@@ -83,6 +85,10 @@
   <!-- Raposa Marker -->
   <node pkg="raposa_marker" name="raposa_marker" type="raposa_marker" if="$(arg launch_raposa_marker)"/>
 
+  <!-- ALOAM Odometry -->
+  <node pkg="timed_roslaunch" type="timed_roslaunch.sh" args="20 nix_launchers aloam.launch only_odometry:=true" name="aloam_odometry" if="$(arg use_aloam_odometry)">
+  </node>
+
   <!-- Joy teleop -->
   <include file="$(dirname)/teleop.launch">
     <arg name="joy_dev"  value="$(arg joy_dev)"/>
@@ -97,7 +103,7 @@
   </node>
 
   <!-- Localization System -->
-  <node pkg="timed_roslaunch" type="timed_roslaunch.sh" args="10 nix_launchers mcl3d.launch map_path:=$(dirname)/../resources/maps/sim/sim_full.bt use_fid:=false initial_x:=$(arg initial_x) initial_y:=$(arg initial_y) initial_z:=$(arg initial_z) initial_a:=$(arg initial_a)" name="mapping_system" output="screen" if="$(eval arg('navigation_system') or arg('localization_system') and not arg('use_gazebo_ground_truth'))">
+  <node pkg="timed_roslaunch" type="timed_roslaunch.sh" args="15 nix_launchers mcl3d.launch map_path:=$(dirname)/../resources/maps/sim/sim_full.bt use_fid:=false initial_x:=$(arg initial_x) initial_y:=$(arg initial_y) initial_z:=$(arg initial_z) initial_a:=$(arg initial_a)" name="mapping_system" output="screen" if="$(eval arg('navigation_system') or arg('localization_system') and not arg('use_gazebo_ground_truth'))">
   </node>
 
   <!-- Navigation System -->
