@@ -1,11 +1,27 @@
 <launch>
   <env name="ROSCONSOLE_CONFIG_FILE"
        value="$(find nix_simulator)/config/rosconsole.conf"/>
+  <arg name="world_file" default="nix_ramp.world"/>
 
-  <arg name="x_pos" default="2.0"/>
-  <arg name="y_pos" default="9.67"/>
-  <arg name="z_pos" default="0.3"/>
-  <arg name="yaw" default="1.57"/>
+  <!-- Initial position in the gazebo reference frame.-->
+  <!-- If you create a new world (go ahead!) add another lines as the below ones with the corresponding -->
+  <!-- initial coordinates with the "if" argument to automtic choose the correct ones only selecting the world -->
+  <!-- Default initial position for the nix ramp world -->
+  <arg name="x_pos" default="2.0 " if="$(eval arg('world_file') == 'nix_ramp.world')"/>
+  <arg name="y_pos" default="9.67" if="$(eval arg('world_file') == 'nix_ramp.world')"/>
+  <arg name="z_pos" default="0.3 " if="$(eval arg('world_file') == 'nix_ramp.world')"/>
+  <arg name="yaw" default="1.57  " if="$(eval arg('world_file') == 'nix_ramp.world')"/> 
+  <!-- Default position for the multi ramp world -->
+  <arg name="x_pos" default="-5 " if="$(eval arg('world_file') == 'multi_ramps.world')"/>
+  <arg name="y_pos" default="-5 " if="$(eval arg('world_file') == 'multi_ramps.world')"/>
+  <arg name="z_pos" default="4.5" if="$(eval arg('world_file') == 'multi_ramps.world')"/>
+  <arg name="yaw" default="1.57 " if="$(eval arg('world_file') == 'multi_ramps.world')"/>
+  
+  <!-- Initial position for the localization system in the "world" frame-->
+  <arg name="initial_x" default="2.15"/>
+  <arg name="initial_y" default="4.26"/>
+  <arg name="initial_z" default="0"/>
+  <arg name="initial_a" default="1.57"/>
 
   <arg name="launch_raposa_marker" default="true"/>
   <arg name="joy_teleop" default="true"/>
@@ -20,11 +36,6 @@
   <arg name="launch_aruco_mapping" default="false"/>
 
   <arg name="use_aloam_odometry"  default="false"/>
-  <!-- Initial position for the localization system -->
-  <arg name="initial_x" default="2.15"/>
-  <arg name="initial_y" default="4.26"/>
-  <arg name="initial_z" default="0"/>
-  <arg name="initial_a" default="1.57"/>
 
   <!-- Twist Mux Related config -->
   <arg name="cmd_vel_out" default="cmd_vel"/>
@@ -44,7 +55,6 @@
   <!-- Gazebo Environment variables -->
   <env name="GAZEBO_MODEL_PATH" value="$(find nix_simulator)/models/sensors:$(find nix_simulator)/models:$(optenv GAZEBO_MODEL_PATH)"/>
   <env name="GAZEBO_RESOURCE_PATH" value="${GAZEBO_RESOURCE_PATH}:$(find nix_simulator)/models"/>
-  <arg name="world_file" default="nix_ramp.world"/>
 
   <!-- Marsella MockUp World -->
   <include file="$(find nix_simulator)/launch/empty_world.launch">
@@ -113,6 +123,7 @@
     <arg name="map_name" value="sim_2d_projected"/>
   </include>
 
+  <!-- Behavior Tree Node -->
   <include file="$(dirname)/behavior_tree.launch" if="$(arg launch_trees)"/>
 
 </launch>
