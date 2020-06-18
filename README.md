@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.com/robotics-upo/nix_simulator.svg?token=TqYzdkAmMjrnqQCYqhh1&branch=master)](https://travis-ci.com/robotics-upo/nix_simulator)
 
-# nix_simulator
+# NIx Simulator
 Stand-alone package with the developments of the new nix-simulator. It has the following Gazebo simulation models:
 
 - It includes a ROS gazebo Tracked Vehicle Simple plugin based on the RaposaNG product of Idmind company (https://www.idmind.pt/mobilerobotics/raposang/)
@@ -172,6 +172,11 @@ You can also launch the simulation along with rviz, in the viz/ folder you can f
 ## Performance Notes
 
 Using a MSI GE63 Laptop we have achieve a real time factor of 0.8 ~ 0.9 suscribing to the five point clouds from the lidar and cameras simultaneously. This is mostly due to the use of the GPU. If you have any suggestion about improving the performance, tell us!
+
+## Issues
+
+ - The pico flexx cameras has a min sensing distance of 0.15, but this is a problem for the front camera, it appears some points coming from the own crawler. To avoid these annoying points you can go to the folder ```models/sensors/front_pico_flexx``` and edit the file ```front_pico_flexx.sdf```, search for the tag ```<min>0.15</min>``` inside ```<range>``` and replace 0.15 by 0.35.
+
 
 ## TODO
 
