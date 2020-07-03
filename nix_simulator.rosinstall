@@ -11,4 +11,4 @@
 - git: {local-name: behavior_tree_plugins, uri: 'https://github.com/robotics-upo/behavior_tree_plugins.git', version: master}
 - git: {local-name: behavior_tree_ros, uri: 'https://github.com/robotics-upo/behavior_tree_ros.git', version: master}
 - git: {local-name: odom_to_tf, uri: 'https://github.com/robotics-upo/odom_to_tf.git', version: master}
-
+- git: {local-name: octomap_mapping, uri: 'https://github.com/robotics-upo/octomap_mapping.git', version: master}
