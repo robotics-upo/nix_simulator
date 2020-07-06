@@ -7,10 +7,10 @@
   <!-- If you create a new world (go ahead!) add another lines as the below ones with the corresponding -->
   <!-- initial coordinates with the "if" argument to automtic choose the correct ones only selecting the world -->
   <!-- Default initial position for the nix ramp world -->
-  <arg name="x_pos" default="2.0 " if="$(eval arg('world_file') == 'nix_ramp.world')"/>
-  <arg name="y_pos" default="9.67" if="$(eval arg('world_file') == 'nix_ramp.world')"/>
-  <arg name="z_pos" default="0.3 " if="$(eval arg('world_file') == 'nix_ramp.world')"/>
-  <arg name="yaw" default="1.57  " if="$(eval arg('world_file') == 'nix_ramp.world')"/> 
+  <arg name="x_pos" default="2.0 " if="$(eval arg('world_file') == 'nix_ramp.world' or arg('world_file') == 'nix_ramp_obscure.world')"/>
+  <arg name="y_pos" default="9.67" if="$(eval arg('world_file') == 'nix_ramp.world' or arg('world_file') == 'nix_ramp_obscure.world')"/>
+  <arg name="z_pos" default="0.3 " if="$(eval arg('world_file') == 'nix_ramp.world' or arg('world_file') == 'nix_ramp_obscure.world')"/>
+  <arg name="yaw" default="1.57  " if="$(eval arg('world_file') == 'nix_ramp.world' or arg('world_file') == 'nix_ramp_obscure.world')"/> 
   <!-- Default position for the multi ramp world -->
   <arg name="x_pos" default="-5 " if="$(eval arg('world_file') == 'multi_ramps.world')"/>
   <arg name="y_pos" default="-5 " if="$(eval arg('world_file') == 'multi_ramps.world')"/>
@@ -40,7 +40,7 @@
   <!-- Twist Mux Related config -->
   <arg name="cmd_vel_out" default="cmd_vel"/>
   <arg name="config_topics" default="$(dirname)/../config/twist_mux_topics.yaml"/>
-
+  
   <!-- Teleop Related Args -->
   <arg name="joy_config" default="xbox" />
   <arg name="joy_dev" default="/dev/input/js0" />
