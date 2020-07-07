@@ -1,4 +1,5 @@
 - git: {local-name: nix_launchers, uri: 'https://github.com/robotics-upo/nix_launchers.git', version: simulation_features}
+- git: {local-name: nix_common, uri: 'https://github.com/robotics-upo/nix_common.git', version: master}
 - git: {local-name: nix_html_logger, uri: 'https://github.com/robotics-upo/nix_html_logger.git', version: master}
 - git: {local-name: nix_base_station, uri: 'https://github.com/robotics-upo/nix_base_station.git', version: master}
 - git: {local-name: raposa_marker, uri: 'https://github.com/robotics-upo/raposa_marker.git', version: master}
@@ -13,4 +14,4 @@
 - git: {local-name: behavior_tree_plugins, uri: 'https://github.com/robotics-upo/behavior_tree_plugins.git', version: mbzirc}
 - git: {local-name: behavior_tree_ros, uri: 'https://github.com/robotics-upo/behavior_tree_ros.git', version: mbzirc}
 - git: {local-name: odom_to_tf, uri: 'https://github.com/robotics-upo/odom_to_tf.git', version: master}
-- git: {local-name: octomap_mapping, uri: 'https://github.com/robotics-upo/octomap_mapping.git', version: master}
+- git: {local-name: octomap_mapping, uri: 'https://github.com/robotics-upo/octomap_mapping.git', version: kinetic-devel}
