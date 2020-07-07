@@ -306,10 +306,10 @@
         </link>
       </model>
       <model name='unit_box_clone_0'>
-        <pose frame=''>2.9982 16.154 0.754292 0 -0 0</pose>
+        <pose frame=''>3.06971 16.1312 0.754292 0 -0 0</pose>
         <scale>1 0.108985 1</scale>
         <link name='link'>
-          <pose frame=''>2.9982 16.154 0.754292 0 -0 0</pose>
+          <pose frame=''>3.06971 16.1312 0.754292 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -346,10 +346,10 @@
         </link>
       </model>
       <model name='unit_box_clone_clone_clone'>
-        <pose frame=''>2.54953 16.2155 1.26526 1.56106 -1.55357 -1.57258</pose>
-        <scale>1 0.188946 0.624502</scale>
+        <pose frame=''>2.57555 16.2152 1.26526 1.56106 -1.55357 -1.57258</pose>
+        <scale>1 0.188946 0.645641</scale>
         <link name='link'>
-          <pose frame=''>2.54953 16.2155 1.26526 1.56106 -1.55357 -1.57258</pose>
+          <pose frame=''>2.57555 16.2152 1.26526 1.56106 -1.55357 -1.57258</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
