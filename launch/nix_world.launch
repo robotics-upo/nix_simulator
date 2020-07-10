@@ -1,8 +1,27 @@
 <launch>
-  <arg name="x_pos" default="2.0"/>
-  <arg name="y_pos" default="9.67"/>
-  <arg name="z_pos" default="0.3"/>
-  <arg name="yaw" default="1.57"/>
+  <env name="ROSCONSOLE_CONFIG_FILE"
+       value="$(find nix_simulator)/config/rosconsole.conf"/>
+  <arg name="world_file" default="nix_ramp.world"/>
+
+  <!-- Initial position in the gazebo reference frame.-->
+  <!-- If you create a new world (go ahead!) add another lines as the below ones with the corresponding -->
+  <!-- initial coordinates with the "if" argument to automtic choose the correct ones only selecting the world -->
+  <!-- Default initial position for the nix ramp world -->
+  <arg name="x_pos" default="2.0 " if="$(eval arg('world_file') == 'nix_ramp.world')"/>
+  <arg name="y_pos" default="9.67" if="$(eval arg('world_file') == 'nix_ramp.world')"/>
+  <arg name="z_pos" default="0.3 " if="$(eval arg('world_file') == 'nix_ramp.world')"/>
+  <arg name="yaw" default="1.57  " if="$(eval arg('world_file') == 'nix_ramp.world')"/> 
+  <!-- Default position for the multi ramp world -->
+  <arg name="x_pos" default="-5 " if="$(eval arg('world_file') == 'multi_ramps.world')"/>
+  <arg name="y_pos" default="-5 " if="$(eval arg('world_file') == 'multi_ramps.world')"/>
+  <arg name="z_pos" default="4.5" if="$(eval arg('world_file') == 'multi_ramps.world')"/>
+  <arg name="yaw" default="1.57 " if="$(eval arg('world_file') == 'multi_ramps.world')"/>
+  
+  <!-- Initial position for the localization system in the "world" frame-->
+  <arg name="initial_x" default="2.15"/>
+  <arg name="initial_y" default="4.26"/>
+  <arg name="initial_z" default="0"/>
+  <arg name="initial_a" default="1.57"/>
 
   <arg name="launch_raposa_marker" default="true"/>
   <arg name="joy_teleop" default="true"/>
@@ -16,11 +35,7 @@
   <arg name="mapping_system" default="false"/>
   <arg name="launch_aruco_mapping" default="false"/>
 
-  <!-- Initial position for the localization system -->
-  <arg name="initial_x" default="2.15"/>
-  <arg name="initial_y" default="4.26"/>
-  <arg name="initial_z" default="0"/>
-  <arg name="initial_a" default="1.57"/>
+  <arg name="use_aloam_odometry"  default="false"/>
 
   <!-- Twist Mux Related config -->
   <arg name="cmd_vel_out" default="cmd_vel"/>
@@ -40,7 +55,6 @@
   <!-- Gazebo Environment variables -->
   <env name="GAZEBO_MODEL_PATH" value="$(find nix_simulator)/models/sensors:$(find nix_simulator)/models:$(optenv GAZEBO_MODEL_PATH)"/>
   <env name="GAZEBO_RESOURCE_PATH" value="${GAZEBO_RESOURCE_PATH}:$(find nix_simulator)/models"/>
-  <arg name="world_file" default="nix_ramp.world"/>
 
   <!-- Marsella MockUp World -->
   <include file="$(find nix_simulator)/launch/empty_world.launch">
@@ -51,7 +65,8 @@
     <arg name="headless" value="false"/>
     <arg name="debug" value="false"/>
     <arg name="verbose" value="false"/>
-    <arg name="remap_tf" value="$(arg mapping_system)"/>
+    <!-- Don't publish gazebo tf if we are getting the odometry tf from the loam, when mapping or navigating if using loam odometry -->
+    <arg name="remap_tf" value="$(eval arg('mapping_system') or arg('use_aloam_odometry') )"/>
   </include>
 
   <node pkg="gazebo_ros" type="spawn_model" name="spawn_sdf" args="-sdf -model nix -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -Y $(arg yaw) -file $(find nix_simulator)/models/nix/nix.sdf" output="screen"/>
@@ -80,6 +95,10 @@
   <!-- Raposa Marker -->
   <node pkg="raposa_marker" name="raposa_marker" type="raposa_marker" if="$(arg launch_raposa_marker)"/>
 
+  <!-- ALOAM Odometry -->
+  <node pkg="timed_roslaunch" type="timed_roslaunch.sh" args="20 nix_launchers aloam.launch only_odometry:=true" name="aloam_odometry" if="$(arg use_aloam_odometry)">
+  </node>
+
   <!-- Joy teleop -->
   <include file="$(dirname)/teleop.launch">
     <arg name="joy_dev"  value="$(arg joy_dev)"/>
@@ -94,7 +113,7 @@
   </node>
 
   <!-- Localization System -->
-  <node pkg="timed_roslaunch" type="timed_roslaunch.sh" args="10 nix_launchers mcl3d.launch map_path:=$(dirname)/../resources/maps/sim/sim_full.bt use_fid:=false initial_x:=$(arg initial_x) initial_y:=$(arg initial_y) initial_z:=$(arg initial_z) initial_a:=$(arg initial_a)" name="mapping_system" output="screen" if="$(eval arg('navigation_system') or arg('localization_system') and not arg('use_gazebo_ground_truth'))">
+  <node pkg="timed_roslaunch" type="timed_roslaunch.sh" args="15 nix_launchers mcl3d.launch map_path:=$(dirname)/../resources/maps/sim/sim_full.bt use_fid:=false initial_x:=$(arg initial_x) initial_y:=$(arg initial_y) initial_z:=$(arg initial_z) initial_a:=$(arg initial_a)" name="mapping_system" output="screen" if="$(eval arg('navigation_system') or arg('localization_system') and not arg('use_gazebo_ground_truth'))">
   </node>
 
   <!-- Navigation System -->
@@ -104,6 +123,7 @@
     <arg name="map_name" value="sim_2d_projected"/>
   </include>
 
+  <!-- Behavior Tree Node -->
   <include file="$(dirname)/behavior_tree.launch" if="$(arg launch_trees)"/>
 
 </launch>

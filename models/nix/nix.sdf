@@ -69,7 +69,7 @@
 
     <include>
       <uri>model://left_pico_flexx</uri>
-      <pose frame=''> 0.13 0.11 0.4 0 0.25 1.5708 </pose>
+      <pose frame=''> 0.13 0.11 0.4 0 0.4 1.5708 </pose>
     </include>
     <joint name="pico_flexx_l_joint" type="fixed">
       <child>left_pico_flexx::base_link</child>
@@ -79,7 +79,7 @@
 
     <include>
       <uri>model://right_pico_flexx</uri>
-      <pose frame=''> 0.13 -0.11 0.4 0 0.25 -1.5708 </pose>
+      <pose frame=''> 0.13 -0.11 0.4 0 0.4 -1.5708 </pose>
     </include>
     <joint name="pico_flexx_r_joint" type="fixed">
       <child>right_pico_flexx::base_link</child>
