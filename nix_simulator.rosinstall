@@ -15,3 +15,6 @@
 - git: {local-name: behavior_tree_ros, uri: 'https://github.com/robotics-upo/behavior_tree_ros.git', version: mbzirc}
 - git: {local-name: odom_to_tf, uri: 'https://github.com/robotics-upo/odom_to_tf.git', version: master}
 - git: {local-name: octomap_mapping, uri: 'https://github.com/robotics-upo/octomap_mapping.git', version: kinetic-devel}
+- git: {local-name: elevation_mapping, uri: 'https://github.com/robotics-upo/elevation_mapping.git', version: master}
+- git: {local-name: grid_map_tests uri: 'https://github.com/robotics-upo/grid_map_tests.git', version: master}
+- git: {local-name: kindr_ros uri: 'https://github.com/anybotics/kindr_ros', version: master}

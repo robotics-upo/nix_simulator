@@ -28,6 +28,8 @@ This package has been designed and tested in a x86_64 machine under a Linux 18.0
 - Velodyne Gazebo plugin for ROS
 - Standard teleop joy package of ROS
 
+Note: If you get a gazebo plugin error launching the simulator, check ```gazebo --version```. If this commands returns error, you should upgrade your packages: ``` sudo apt-get upgrade ```.
+
 ### Instalation steps:
 
 1- Clone this repository into the source of your catkin workspace. Please refer to http://wiki.ros.org/catkin/Tutorials/create_a_workspace to setup a new workspace.
