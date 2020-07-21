@@ -113,7 +113,7 @@
   </node>
 
   <!-- Localization System -->
-  <node pkg="timed_roslaunch" type="timed_roslaunch.sh" args="15 nix_launchers mcl3d.launch map_path:=$(dirname)/../resources/maps/sim/sim_full.bt use_fid:=false initial_x:=$(arg initial_x) initial_y:=$(arg initial_y) initial_z:=$(arg initial_z) initial_a:=$(arg initial_a)" name="mapping_system" output="screen" if="$(eval arg('navigation_system') or arg('localization_system') and not arg('use_gazebo_ground_truth'))">
+  <node pkg="timed_roslaunch" type="timed_roslaunch.sh" args="15 nix_launchers mcl3d.launch simulation:=true map_path:=$(dirname)/../resources/maps/sim/sim_full.bt use_fid:=false initial_x:=$(arg initial_x) initial_y:=$(arg initial_y) initial_z:=$(arg initial_z) initial_a:=$(arg initial_a)" name="mapping_system" output="screen" if="$(eval arg('navigation_system') or arg('localization_system') and not arg('use_gazebo_ground_truth'))">
   </node>
 
   <!-- Navigation System -->
