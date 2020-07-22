@@ -1,16 +1,16 @@
 <launch>
   <env name="ROSCONSOLE_CONFIG_FILE"
        value="$(find nix_simulator)/config/rosconsole.conf"/>
-  <arg name="world_file" default="nix_ramp.world"/>
+  <arg name="world_file" default="nix_ramp"/>
 
   <!-- Initial position in the gazebo reference frame.-->
   <!-- If you create a new world (go ahead!) add another lines as the below ones with the corresponding -->
   <!-- initial coordinates with the "if" argument to automtic choose the correct ones only selecting the world -->
   <!-- Default initial position for the nix ramp world -->
-  <arg name="x_pos" default="2.0 " if="$(eval arg('world_file') == 'nix_ramp.world' or arg('world_file') == 'nix_ramp_obscure.world')"/>
-  <arg name="y_pos" default="9.67" if="$(eval arg('world_file') == 'nix_ramp.world' or arg('world_file') == 'nix_ramp_obscure.world')"/>
-  <arg name="z_pos" default="0.3 " if="$(eval arg('world_file') == 'nix_ramp.world' or arg('world_file') == 'nix_ramp_obscure.world')"/>
-  <arg name="yaw" default="1.57  " if="$(eval arg('world_file') == 'nix_ramp.world' or arg('world_file') == 'nix_ramp_obscure.world')"/> 
+  <arg name="x_pos" default="2.0 " if="$(eval arg('world_file') == 'nix_ramp' or arg('world_file') == 'nix_ramp_obscure')"/>
+  <arg name="y_pos" default="9.67" if="$(eval arg('world_file') == 'nix_ramp' or arg('world_file') == 'nix_ramp_obscure')"/>
+  <arg name="z_pos" default="0.3 " if="$(eval arg('world_file') == 'nix_ramp' or arg('world_file') == 'nix_ramp_obscure')"/>
+  <arg name="yaw" default="1.57  " if="$(eval arg('world_file') == 'nix_ramp' or arg('world_file') == 'nix_ramp_obscure')"/> 
   <!-- Default position for the multi ramp world -->
   <arg name="x_pos" default="-5 " if="$(eval arg('world_file') == 'multi_ramps.world')"/>
   <arg name="y_pos" default="-5 " if="$(eval arg('world_file') == 'multi_ramps.world')"/>
@@ -18,10 +18,15 @@
   <arg name="yaw" default="1.57 " if="$(eval arg('world_file') == 'multi_ramps.world')"/>
   
   <!-- Initial position for the localization system in the "world" frame-->
-  <arg name="initial_x" default="2.15"/>
-  <arg name="initial_y" default="4.26"/>
-  <arg name="initial_z" default="0"/>
-  <arg name="initial_a" default="1.57"/>
+  <arg name="initial_x" default="2.15" if="$(eval arg('world_file') == 'nix_ramp' )"/>
+  <arg name="initial_y" default="4.26" if="$(eval arg('world_file') == 'nix_ramp' )"/>
+  <arg name="initial_z" default="0"    if="$(eval arg('world_file') == 'nix_ramp' )"/>
+  <arg name="initial_a" default="1.57" if="$(eval arg('world_file') == 'nix_ramp' )"/>
+
+  <arg name="initial_x" default="2.25" if="$(eval arg('world_file') == 'nix_ramp_obscure' )"/>
+  <arg name="initial_y" default="3.4"  if="$(eval arg('world_file') == 'nix_ramp_obscure' )"/>
+  <arg name="initial_z" default="0.3"  if="$(eval arg('world_file') == 'nix_ramp_obscure' )"/>
+  <arg name="initial_a" default="1.57" if="$(eval arg('world_file') == 'nix_ramp_obscure' )"/>
 
   <arg name="launch_raposa_marker" default="true"/>
   <arg name="joy_teleop" default="true"/>
@@ -58,7 +63,7 @@
 
   <!-- Marsella MockUp World -->
   <include file="$(find nix_simulator)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find nix_simulator)/worlds/$(arg world_file)"/>
+    <arg name="world_name" value="$(find nix_simulator)/worlds/$(arg world_file).world"/>
     <arg name="paused" value="false"/>
     <arg name="use_sim_time" value="true"/>
     <arg name="gui" value="true"/>
@@ -113,7 +118,7 @@
   </node>
 
   <!-- Localization System -->
-  <node pkg="timed_roslaunch" type="timed_roslaunch.sh" args="15 nix_launchers mcl3d.launch simulation:=true map_path:=$(dirname)/../resources/maps/sim/sim_full.bt use_fid:=false initial_x:=$(arg initial_x) initial_y:=$(arg initial_y) initial_z:=$(arg initial_z) initial_a:=$(arg initial_a)" name="mapping_system" output="screen" if="$(eval arg('navigation_system') or arg('localization_system') and not arg('use_gazebo_ground_truth'))">
+  <node pkg="timed_roslaunch" type="timed_roslaunch.sh" args="15 nix_launchers mcl3d.launch simulation:=true map_path:=$(dirname)/../resources/maps/$(arg world_file)/$(arg world_file).bt use_fid:=false initial_x:=$(arg initial_x) initial_y:=$(arg initial_y) initial_z:=$(arg initial_z) initial_a:=$(arg initial_a)" name="mapping_system" output="screen" if="$(eval arg('navigation_system') or arg('localization_system') and not arg('use_gazebo_ground_truth'))">
   </node>
 
   <!-- Navigation System -->
