@@ -124,11 +124,14 @@
   <!-- Navigation System -->
   <include file="$(find nix_launchers)/launch/navigation_system.launch" if="$(arg navigation_system)">
     <arg name="simulation" value="true"/>
-    <arg name="map_path" value="$(find nix_simulator)/resources/maps/sim"/>
-    <arg name="map_name" value="sim_2d_projected"/>
+    <arg name="map_path" value="$(find nix_simulator)/resources/maps/$(arg world_file)"/>
+    <arg name="map_name" value="$(arg world_file)"/>
   </include>
 
   <!-- Behavior Tree Node -->
-  <include file="$(dirname)/behavior_tree.launch" if="$(arg launch_trees)"/>
+  <include file="$(dirname)/behavior_tree.launch" if="$(arg launch_trees)">
+    <arg name="goals_file" value="sim_goals"  if="$(eval arg('world_file') == 'nix_ramp' )" />
+    <arg name="goals_file" value="sim_goals_obscure"  if="$(eval arg('world_file') == 'nix_ramp_obscure' )" />
+  </include>
 
 </launch>
