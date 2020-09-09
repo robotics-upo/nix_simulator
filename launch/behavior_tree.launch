@@ -1,6 +1,7 @@
 <launch>
 
-    <rosparam command="load" file="$(find nix_launchers)/resources/trees/sim_goals.yaml" />
+    <arg name="goals_file" default="sim_goals"/>
+    <rosparam command="load" file="$(find nix_launchers)/resources/trees/$(arg goals_file).yaml" />
 
     <param name="trees_folder" type="string" value="$(find nix_launchers)/resources/trees" />
     <param name="import_from_folder" type="bool" value="false" />

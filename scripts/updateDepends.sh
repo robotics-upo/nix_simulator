@@ -11,7 +11,17 @@ wget https://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
 echo Updating apt cache
 sudo apt-get update
 echo Downloading necessary packages
-sudo apt-get install gazebo9 ros-$ROS_DISTRO-gazebo-ros ros-$ROS_DISTRO-gazebo-plugins gazebo9  ros-$ROS_DISTRO-velodyne-gazebo-plugins ros-$ROS_DISTRO-twist-mux ros-$ROS_DISTRO-teleop-twist-joy ros-$ROS_DISTRO-timed-roslaunch -y 
+sudo apt-get install gazebo9 ros-$ROS_DISTRO-gazebo-ros ros-$ROS_DISTRO-gazebo-plugins gazebo9  ros-$ROS_DISTRO-velodyne-gazebo-plugins ros-$ROS_DISTRO-twist-mux ros-$ROS_DISTRO-teleop-twist-joy ros-$ROS_DISTRO-timed-roslaunch ros-$ROS_DISTRO-octomap ros-$ROS_DISTRO-octomap-ros ros-$ROS_DISTRO-pointcloud-to-laserscan ros-$ROS_DISTRO-ira-laser-tools -y  ros-$ROS_DISTRO-ros-type-instrospection libceres-dev libgsl-dev ros-$ROS_DISTRO-costmap-2d libzmq3-dev libdw-dev ros-$ROS_DISTRO-people-msgs ros-$ROS_DISTRO-map-server ros-$ROS_DISTRO-grid-map-core ros-$ROS_DISTRO-grid-map-ros ros-$ROS_DISTRO-grid-map
+
+#Downlaod and install kindr library for elevation maps
+
+cd ~/
+git clone https://github.com/anybotics/kindr.git
+cd kindr 
+mkdir build && cd build
+cmake ..
+make
+sudo make install
 
 echo "Nix simulator dependencies installed."
 
