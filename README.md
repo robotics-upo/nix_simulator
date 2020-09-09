@@ -161,7 +161,7 @@ git checkout f2fa74285b1a53e6e4db403aad318ecfb85dbee6
 ```
 
 ```
-roslaunch nix_simulator nix_world.launch localization_system:=true
+roslaunch nix_simulator nix_world.launch navigation_system:=true
 ```
 
 To modify the configurations of the planners, you should go to the ```navigation_system.launch``` and related .yaml files from the nix_launchers packages. By default it's configured to received goal through RViz "2D Goal" button.
