@@ -116,11 +116,11 @@
   <node pkg="rviz" name="rviz" type="rviz" args="-d $(find nix_simulator)/viz/$(arg viz_file).rviz" if="$(arg rviz)"/>
 
   <!-- Mapping system launch from the nix_launchers package -->
-  <node pkg="timed_roslaunch" type="timed_roslaunch.sh" args="20 nix_launchers mapping.launch simulation:=true map2d:=false launch_aruco:=$(arg launch_aruco_mapping)" name="mapping_system" output="screen" if="$(arg mapping_system)">
+  <node pkg="timed_roslaunch" type="timed_roslaunch.sh" args="10 nix_launchers mapping.launch simulation:=true map2d:=false launch_aruco:=$(arg launch_aruco_mapping)" name="mapping_system" output="screen" if="$(arg mapping_system)">
   </node>
 
   <!-- Localization System -->
-  <node pkg="timed_roslaunch" type="timed_roslaunch.sh" args="15 nix_launchers mcl3d.launch simulation:=true map_path:=$(dirname)/../resources/maps/$(arg world_file)/$(arg world_file).bt use_fid:=false initial_x:=$(arg initial_x) initial_y:=$(arg initial_y) initial_z:=$(arg initial_z) initial_a:=$(arg initial_a)" name="mapping_system" output="screen" if="$(eval arg('navigation_system') or arg('localization_system') and not arg('use_gazebo_ground_truth'))">
+  <node pkg="timed_roslaunch" type="timed_roslaunch.sh" args="7 nix_launchers mcl3d.launch simulation:=true map_path:=$(dirname)/../resources/maps/$(arg world_file)/$(arg world_file).bt use_fid:=false initial_x:=$(arg initial_x) initial_y:=$(arg initial_y) initial_z:=$(arg initial_z) initial_a:=$(arg initial_a)" name="mapping_system" output="screen" if="$(eval arg('navigation_system') or arg('localization_system') and not arg('use_gazebo_ground_truth'))">
   </node>
 
   <!-- Navigation System -->
