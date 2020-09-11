@@ -33,7 +33,7 @@
   <arg name="rviz" default="true"/>
   <arg name="use_gazebo_ground_truth" default="false"/>
 
-  <arg name="navigation_system" default="false"/>
+  <arg name="navigation_system" default="true"/>
   <arg name="localization_system" default="false" unless="$(arg navigation_system)"/>
   <arg name="localization_system" default="true" if="$(arg navigation_system)"/>
   <arg name="launch_trees"  default="true"/>
@@ -128,6 +128,7 @@
     <arg name="simulation" value="true"/>
     <arg name="map_path" value="$(find nix_simulator)/resources/maps/$(arg world_file)"/>
     <arg name="map_name" value="$(arg world_file)"/>
+    <arg name="launch_elevation_maps" value="false"/>
   </include>
 
   <!-- Behavior Tree Node -->
