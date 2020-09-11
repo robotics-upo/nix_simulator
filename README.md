@@ -74,10 +74,10 @@ In order to take better snapshots of the simulation in RViz, you can launch the 
 roslaunch nix_simulator nix_world.launch launch_raposa_marker:=true
 ```
 
-but you will need to download and compile the package first:
+but you will need to download and compile the upo markers package first (or use the aforementioned rosinstall file):
 
 ```
-git clone https://github.com/robotics-upo/raposa_marker.git
+git clone https://github.com/robotics-upo/upo_markers.git
 ```
 
 ### Teleop
@@ -88,7 +88,7 @@ To launch the simulation with the teleop simply run:
 roslaunch nix_simulator nix_world.launch joy_teleop:=true
 ```
 
-By now it's only configured for joy teleoperation, if you want to use the keyboard you have to launch it by yourself. Note that to enable the teleoperation you should use the joystick with the R1 button pressed. 
+Right now it's only configured for joy teleoperation, if you want to use the keyboard you have to launch it by yourself. Note that to enable the teleoperation you should use the joystick with the R1 button pressed. 
 
 ### Mapping 
 
@@ -186,5 +186,5 @@ The following characteristics are still pending:
 
  - [ ] Add a thermal camera to the sensing head
  - [ ] Add noise to the odometry estimation
- - [ ] Add motor to the flipper in the raposaNG platform
+ - [ ] Add a motor to the flipper in the raposaNG platform
  - [ ] Check why the floor does not appear in the map, because of LOAM, because of OctoMap...?

@@ -2,7 +2,7 @@
 - git: {local-name: nix_common, uri: 'https://github.com/robotics-upo/nix_common.git', version: master}
 - git: {local-name: nix_html_logger, uri: 'https://github.com/robotics-upo/nix_html_logger.git', version: master}
 - git: {local-name: nix_base_station, uri: 'https://github.com/robotics-upo/nix_base_station.git', version: master}
-- git: {local-name: raposa_marker, uri: 'https://github.com/robotics-upo/raposa_marker.git', version: master}
+- git: {local-name: upo_markers, uri: 'https://github.com/robotics-upo/upo_markers.git', version: master}
 - git: {local-name: a-loam, uri: 'https://github.com/robotics-upo/a-loam.git', version: final}
 - git: {local-name: mcl3d, uri: 'https://github.com/robotics-upo/mcl3d.git', version: master}
 - git: {local-name: range_msgs, uri: 'https://github.com/robotics-upo/range_msgs.git', version: master}
