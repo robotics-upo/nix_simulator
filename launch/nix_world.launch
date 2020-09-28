@@ -127,7 +127,7 @@
   <include file="$(find nix_launchers)/launch/navigation_system.launch" if="$(arg navigation_system)">
     <arg name="simulation" value="true"/>
     <arg name="map_path" value="$(find nix_simulator)/resources/maps/$(arg world_file)"/>
-    <arg name="map_name" value="$(arg world_file)"/>
+    <arg name="map_name" value=""/>
     <arg name="launch_elevation_maps" value="false"/>
   </include>
 
