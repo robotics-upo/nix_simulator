@@ -36,7 +36,7 @@
   <arg name="navigation_system" default="true"/>
   <arg name="localization_system" default="false" unless="$(arg navigation_system)"/>
   <arg name="localization_system" default="true" if="$(arg navigation_system)"/>
-  <arg name="launch_trees"  default="true"/>
+  <arg name="launch_trees"  default="false"/>
   <arg name="mapping_system" default="false"/>
   <arg name="launch_aruco_mapping" default="false"/>
   <arg name="launch_task_launcher" default="true"/>
