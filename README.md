@@ -20,9 +20,9 @@ In this section you will find the installation instructions for making it work. 
 
 ### Prerrequisites and dependencies
 
-This package has been designed and tested in a x86_64 machine under a Linux 18.04 operating system and ROS melodic distribution. Besides, our update depends script lets you easilly install the following dependencies:
+This package has been designed and tested in a x86_64 machine under a Linux 18.04 & 20.04 operating system and ROS melodic/noetic distribution, respectively. Besides, our update depends script lets you easilly install the following dependencies:
 
-- Latest Gazebo 9 simulator from OSRF
+- Latest Gazebo 9.11 or Gazebo 11 simulator from OSRF
 - Gazebo ROS Package
 - Gazebo plugins package for ROS
 - Velodyne Gazebo plugin for ROS
