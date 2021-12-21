@@ -1,20 +1,12 @@
 <launch>
   <arg name="world_file" default="nix_ramp.world"/>
 
-    <env name="GAZEBO_MODEL_PATH" value="$(find nix_simulator)/models/sensors:$(find nix_simulator)/models:$(optenv GAZEBO_MODEL_PATH)"/>
-    <env name="GAZEBO_RESOURCE_PATH" value="${GAZEBO_RESOURCE_PATH}:$(find nix_simulator)/models"/>
+    <env name="IGN_GAZEBO_RESOURCE_PATH" value="$(find nix_simulator)/models"/>
 
     <!-- Marsella MockUp World -->
-    <include file="$(find nix_simulator)/launch/empty_world.launch">
-        <arg name="world_name" value="$(find nix_simulator)/worlds/$(arg world_file)"/>
-        <arg name="paused" value="true"/>
-        <arg name="use_sim_time" value="true"/>
-        <arg name="gui" value="true"/>
-        <arg name="headless" value="false"/>
-        <arg name="debug" value="false"/>
-        <arg name="verbose" value="false"/>
-        <!-- Don't publish gazebo tf if we are getting the odometry tf from the loam, when mapping or navigating if using loam odometry -->
-        <!-- <arg name="remap_tf" value="$(eval arg('mapping_system') or arg('use_aloam_odometry') )"/> -->
+    <include file="$(find ros_ign_gazebo)/launch/ign_gazebo.launch">
+      <arg name="ign_args" value="-r -v 3 $(find nix_simulator)/worlds/nix_ramp.world"/>
+      <env name="IGN_GAZEBO_RESOURCE_PATH" value="$(optenv IGN_GAZEBO_RESOURCE_PATH):$(find nix_simulator)/models:$(find nix_simulator)/resources"/>
     </include>
-
+    
 </launch>
