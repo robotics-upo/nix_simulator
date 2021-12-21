@@ -33,11 +33,17 @@
           <max_contacts>50</max_contacts>        
       </collision>
       <visual name="visual">
+        <material>
+            <ambient> 0.8 0.8 0.8 1 </ambient>
+            <diffuse> 0.8 0.8 0.8 1 </diffuse>
+            <specular> 0.8 0.8 0.8 1 </specular>
+        </material>
         <geometry>
           <mesh>
             <uri>model://mockup_nix/mesh/mockup_nix.dae</uri>
             <scale>0.001 0.001 0.001</scale>
           </mesh>
+
         </geometry>
           <!-- JAC: friction coefficient-->
           <surface>
