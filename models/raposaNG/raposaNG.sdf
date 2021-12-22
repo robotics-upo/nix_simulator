@@ -6,7 +6,7 @@
       <link name='base_link'>
           <pose frame=''>0 0 0 0 -0 0</pose>
           <inertial>
-              <pose frame=''>-0.122 0 0.118 1.5707963267948966 -0 0</pose>
+              <pose frame=''>-0.062 0 0.03 1.5708 -0 0</pose>
               <mass>13.14</mass>
               <inertia>
                   <ixx>0.10019</ixx>
@@ -18,18 +18,18 @@
               </inertia>
           </inertial>
           <collision name='base_link_collision'>
-              <pose frame=''>-0.122 0 0.118 0 -0 0</pose>
+              <pose frame=''>-0.062 0 0.03 0 -0 0</pose>
               <geometry>
                   <box>
-                      <size>0.50017 0.24093 0.139</size>
+                      <size>0.46017 0.29093 0.139</size>
                   </box>
               </geometry>
           </collision>
           <visual name='base_link_visual'>
-              <pose frame=''>-0.122 0 0.118 0 -0 0</pose>
+              <pose frame=''>-0.062 0 0.03 0 -0 0</pose>
               <geometry>
                   <box>
-                      <size>0.50017 0.24093 0.139</size>
+                      <size>0.46017 0.29093 0.139</size>
                   </box>
               </geometry>
               <material>
