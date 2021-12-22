@@ -53,15 +53,15 @@
     </joint>
 
     
-    <!-- <include>
-      <uri>model://wide_lens_camera</uri>
-      <pose frame=''> 0.24 -0.08 0.4 0 0 0 </pose>
+    <include>
+      <uri>wide_lens_camera</uri>
+      <pose frame=''> 0.16 -0.08 0.39 0 0 0 </pose>
     </include>
     <joint name="wide_lens_camera_joint" type="fixed">
       <child>wide_lens_camera::base_link</child>
       <parent>nix_tower::plate</parent>
-      <pose>0.24 -0.08 0.4 0 0 0</pose>
-    </joint> -->
+      <pose>0.16 -0.08 0.39 0 0 0</pose>
+    </joint>
 
   </model>
 </sdf>
