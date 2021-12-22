@@ -1,22 +1,12 @@
 <?xml version="1.0" ?>
 <sdf version="1.5">
-  <plugin
-  filename="ignition-gazebo-particle-emitter2-system"
-  name="ignition::gazebo::systems::ParticleEmitter2">
-  </plugin>
+  
   <world name="nix_ramp">
-
-   <!-- <physics name='default_physics' default='0' type='ode'>
-      <max_step_size>0.01</max_step_size>
-      <real_time_factor>1</real_time_factor>
-      <real_time_update_rate>500</real_time_update_rate>
-      <ode>
-        <solver>
-          <iters>50</iters>
-        </solver>
-      </ode>
-    </physics> -->
-
+  <plugin
+      filename="ignition-gazebo-sensors-system"
+      name="ignition::gazebo::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>  
   <physics name='4ms' type='ignored'>
             <max_step_size>0.004</max_step_size>
             <real_time_factor>1.0</real_time_factor>
@@ -25,6 +15,28 @@
     <plugin name='ignition::gazebo::systems::UserCommands' filename='ignition-gazebo-user-commands-system'/>
     <plugin name='ignition::gazebo::systems::SceneBroadcaster' filename='ignition-gazebo-scene-broadcaster-system'/>
     <gui>
+        <!-- World control -->
+      <plugin filename="WorldControl" name="World control">
+        <ignition-gui>
+          <title>World control</title>
+          <property type="bool" key="showTitleBar">false</property>
+          <property type="bool" key="resizable">false</property>
+          <property type="double" key="height">72</property>
+          <property type="double" key="width">121</property>
+          <property type="double" key="z">1</property>
+
+          <property type="string" key="state">floating</property>
+          <anchors target="3D View">
+            <line own="left" target="left"/>
+            <line own="bottom" target="bottom"/>
+          </anchors>
+        </ignition-gui>
+
+        <play_pause>true</play_pause>
+        <step>true</step>
+        <start_paused>true</start_paused>
+
+      </plugin>
         <plugin name='3D View' filename='GzScene3D'>
                 <ignition-gui>
                     <title>3D View</title>
@@ -72,8 +84,14 @@
         </plugin>
     </gui>
 
-    <model name="fog_generator">
-    <pose>3.80 12.7 0 0 -1.5707 0</pose>
+    <include>
+      <uri>fog_generator</uri>
+      <name>fog</name>
+      <pose>0.80 9.7 -1 0 0 0</pose>
+    </include>
+
+    <!-- <model name="fog_generator">
+    <pose>1.80 12.7 0 0 -1.5707 0</pose>
     <static>true</static>
     <link name="fog_link">
     <particle_emitter name="emitter" type="box">
@@ -97,7 +115,9 @@
       <color_range_image>materials/textures/fogcolors.png</color_range_image>
       </particle_emitter>
       </link>
-    </model>
+    </model> -->
+
+
     <light name='sun' type='directional'>
       <cast_shadows>1</cast_shadows>
       <pose frame=''>0 0 10 0 -0 0</pose>
