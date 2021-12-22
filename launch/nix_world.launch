@@ -1,12 +1,13 @@
 <launch>
-    <env name="IGN_GAZEBO_RESOURCE_PATH" value="$(find nix_simulator)/models"/>
+    <env name="IGN_GAZEBO_RESOURCE_PATH" value="$(find nix_simulator)/models:$(find nix_simulator)/models/sensors"/>
 
     <arg name="world_name" default="simple_fog.world"/>
+    <arg name="model" default="nix/nix.sdf"/>
 
     <!-- Marsella MockUp World -->
     <include file="$(find ros_ign_gazebo)/launch/ign_gazebo.launch">
       <arg name="ign_args" value="-r -v 3 $(find nix_simulator)/worlds/$(arg world_name)"/>
-      <env name="IGN_GAZEBO_RESOURCE_PATH" value="$(optenv IGN_GAZEBO_RESOURCE_PATH):$(find nix_simulator)/models:$(find nix_simulator)/resources"/>
+      <env name="IGN_GAZEBO_RESOURCE_PATH" value="$(optenv IGN_GAZEBO_RESOURCE_PATH):$(find nix_simulator)/models:$(find nix_simulator)/models/sensors:$(find nix_simulator)/resources"/>
       <env name="IGN_GAZEBO_SYSTEM_PLUGIN_PATH" value="/home/chur/ign_workspace/install/lib/ign-gazebo-5/plugins"/>
     </include>
 
@@ -22,7 +23,7 @@
     type="create"
     name="nix_spawn"
     output="screen"
-    args="-world nix_ramp -file $(find nix_simulator)/models/raposaNG/raposaNG.sdf -name raposa -allow_renaming true -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) --timeout 3000">
+    args="-world nix_ramp -file $(find nix_simulator)/models/$(arg model) -name raposa -allow_renaming true -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) --timeout 3000">
     </node>
     
 </launch>
