@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <sdf version="1.6">
 
-    <model name="raposa">
+    <model name="raposaNG">
       <pose frame=''>0 2 0.071917 0 0 0</pose>
       <link name='base_link'>
           <pose frame=''>0 0 0 0 -0 0</pose>
