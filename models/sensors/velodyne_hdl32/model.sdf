@@ -61,48 +61,39 @@
           </mesh>
         </geometry>
       </visual>
-
-      <sensor type="gpu_ray" name="sensor">
-        <pose>0 0 0.029335 0 0 0</pose>
-        <visualize>false</visualize>
-        <update_rate>10</update_rate>
-        <ray>
-          <noise>
-            <type>gaussian</type>
-            <mean>0.0</mean>
-            <stddev>0.05</stddev>
-          </noise>
-          <scan>
-             <horizontal>
-              <samples>2048</samples>
-              <resolution>1</resolution>
-              <min_angle>-3.14159</min_angle>
-              <max_angle>3.14159</max_angle>
-            </horizontal>
-            <vertical>
-              <samples>16</samples>
-              <resolution>1</resolution>
-              <min_angle>-0.2897247</min_angle>
-              <max_angle>0.2897247</max_angle>
-            </vertical>
-          </scan>
-          <range>
-            <min>0.5</min>
-            <max>20</max>
-            <resolution>0.02</resolution>
-          </range>
-        </ray>
-        <plugin name="gazebo_ros_laser_controller" filename="libgazebo_ros_velodyne_gpu_laser.so">
-          <!-- <robotNamespace>siar</robotNamespace>  -->
-          <topicName>os1_cloud_node/points_non_dense</topicName>
-          <frameName>os1_sensor</frameName>
-          <min_range>0.5</min_range>
-          <max_range>20.0</max_range>
-          <!-- <gaussianNoise>0.008</gaussianNoise>   -->
-        </plugin>
-      </sensor>
-    </link>
-
-    
+      <sensor name='gpu_lidar' type='gpu_lidar'>"
+          <topic>lidar</topic>
+          <pose>0 0 0.029335 0 0 0</pose>
+          <update_rate>10</update_rate>
+          <ray>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.02</stddev>
+            </noise>
+            <scan>
+                <horizontal>
+                <samples>2048</samples>
+                <resolution>1</resolution>
+                <min_angle>-3.14159</min_angle>
+                <max_angle>3.14159</max_angle>
+              </horizontal>
+              <vertical>
+                <samples>16</samples>
+                <resolution>1</resolution>
+                <min_angle>-0.2897247</min_angle>
+                <max_angle>0.2897247</max_angle>
+              </vertical>
+            </scan>
+            <range>
+              <min>0.08</min>
+              <max>10.0</max>
+              <resolution>0.01</resolution>
+            </range>
+          </ray>
+          <alwaysOn>1</alwaysOn>
+          <visualize>true</visualize>
+        </sensor>
+    </link>   
   </model>
 </sdf>
