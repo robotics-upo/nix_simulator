@@ -1,6 +1,12 @@
 <?xml version="1.0" ?>
 <sdf version="1.5">
+  <plugin
+      filename="ignition-gazebo-sensors-system"
+      name="ignition::gazebo::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
   <model name="velodyne">
+    
     <!-- <link name="base">
       <pose>0 0 0.029335 0 0 0</pose>
       <inertial>
@@ -61,7 +67,7 @@
           </mesh>
         </geometry>
       </visual>
-      <sensor name='gpu_lidar' type='gpu_lidar'>"
+      <sensor name='gpu_lidar' type='gpu_lidar'>
           <topic>lidar</topic>
           <pose>0 0 0.029335 0 0 0</pose>
           <update_rate>10</update_rate>
@@ -70,7 +76,7 @@
               <type>gaussian</type>
               <mean>0.0</mean>
               <stddev>0.02</stddev>
-            </noise>
+            </noise> 
             <scan>
                 <horizontal>
                 <samples>2048</samples>
