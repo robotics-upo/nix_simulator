@@ -1,20 +1,19 @@
 <?xml version="1.0" ?>
 <sdf version="1.6">
-  <model name="fog_generator">
+  <model name="dense_fog_generator">
     <pose>0 0 0 0 -1.5707 0</pose>
     <static>true</static>
     <link name="fog_link">
       <particle_emitter name="emitter" type="box">
-        <particle_scatter_ratio>3</particle_scatter_ratio>
-        <particle_scatter>3</particle_scatter>
+        <particle_scatter_ratio>0.99</particle_scatter_ratio>
         <emitting>true</emitting>
-        <size>10 10 0</size>
-        <particle_size>0.02 0.02 0.02</particle_size>
+        <size>10 10 2</size>
+        <particle_size>3 3 2</particle_size>
         <lifetime>25</lifetime>
-        <min_velocity>0.1</min_velocity>
-        <max_velocity>0.2</max_velocity>
-        <scale_rate>0.5</scale_rate>
-        <rate>5</rate>
+        <min_velocity>0.05</min_velocity>
+        <max_velocity>0.1</max_velocity>
+        <scale_rate>0.3</scale_rate>
+        <rate>15</rate>
         <material>
           <diffuse>0.7 0.7 0.7</diffuse>
           <specular>1.0 1.0 1.0</specular>

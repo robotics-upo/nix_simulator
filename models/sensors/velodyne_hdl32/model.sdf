@@ -79,7 +79,7 @@
             </noise> 
             <scan>
                 <horizontal>
-                <samples>2048</samples>
+                <samples>512</samples>
                 <resolution>1</resolution>
                 <min_angle>-3.14159</min_angle>
                 <max_angle>3.14159</max_angle>

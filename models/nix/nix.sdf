@@ -1,4 +1,6 @@
 <?xml version="1.0" ?>
+
+<!-- TODO: add prefix to the sensors and the cmd_vel (in Raposa) -->
 <sdf version="1.6">
   <plugin
       filename="ignition-gazebo-sensors-system"

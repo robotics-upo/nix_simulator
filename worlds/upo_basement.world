@@ -1,9 +1,9 @@
 <?xml version="1.0" ?>
 <sdf version="1.5">
-  <plugin
+   <plugin
   filename="ignition-gazebo-particle-emitter2-system"
   name="ignition::gazebo::systems::ParticleEmitter2">
-  </plugin>
+  </plugin> 
   <plugin
       filename="ignition-gazebo-sensors-system"
       name="ignition::gazebo::systems::Sensors">
@@ -105,9 +105,9 @@
     </gui>
 
     <include>
-      <uri>dense_fog_generator</uri>
+      <uri>fog_generator</uri>
       <name>fog</name>
-      <pose>4 -2 -1 0 0 0</pose>
+      <pose>2 -2 -1 0 0 0</pose>
     </include>
 
     <!-- Shape of the UPO basement-->
@@ -135,6 +135,7 @@
           </material>
         </visual>
       </link>
+      <static>true</static>
     </model>
 
     <model name="right_wall">
@@ -187,6 +188,7 @@
           </material>
         </visual>
       </link>
+      <static>true</static>
     </model>
     
     <model name="rear_wall">
@@ -213,6 +215,7 @@
           </material>
         </visual>
       </link>
+      <static>true</static>
     </model>
 
     <!-- <model name="fog_generator">
@@ -283,6 +286,7 @@
           </material>
         </visual>
       </link>
+      <static>true</static>
     </model>
     
     <gravity>0 0 -9.8</gravity>

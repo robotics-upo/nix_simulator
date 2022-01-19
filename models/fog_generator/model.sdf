@@ -5,10 +5,10 @@
     <static>true</static>
     <link name="fog_link">
       <particle_emitter name="emitter" type="box">
-        <particle_scatter_ratio>0.00001</particle_scatter_ratio>
+        <particle_scatter_ratio>0.4</particle_scatter_ratio>
         <emitting>true</emitting>
         <size>5 5 0</size>
-        <particle_size>0.005 0.005 0.005</particle_size>
+        <particle_size>0.0001 0.0001 0.0001</particle_size>
         <lifetime>15</lifetime>
         <min_velocity>0.1</min_velocity>
         <max_velocity>0.2</max_velocity>
