@@ -5,6 +5,12 @@
       name="ignition::gazebo::systems::Sensors">
       <render_engine>ogre2</render_engine>
     </plugin>
+
+  <!-- <plugin
+      filename="libGpuRadarSensor"
+      name="radar_sensor">
+      <render_engine>ogre2</render_engine>
+    </plugin> -->
   <model name="velodyne">
     
     <!-- <link name="base">
@@ -68,6 +74,7 @@
         </geometry>
       </visual>
       <sensor name='gpu_lidar' type='gpu_lidar'>
+      <!-- <sensor name='gpu_lidar' type='gpu_radar'> -->
           <topic>lidar</topic>
           <pose>0 0 0.029335 0 0 0</pose>
           <update_rate>10</update_rate>
