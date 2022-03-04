@@ -347,7 +347,7 @@
       <pose>-40.000000 -168.000000 -10.000000 0 0 -3.141593</pose>
     </include>
 
-
+<!-- 
     <wind>
       <linear_velocity>0.000000 0.000000 0.000000</linear_velocity>
     </wind>
@@ -676,7 +676,7 @@
       </level>
 
 
-    </plugin>
+    </plugin> -->
 
   </world>
 </sdf>
