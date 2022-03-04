@@ -54,7 +54,18 @@
       <pose>0.15 0 0.42 0 0 0</pose>
     </joint>
 
-    
+    <!-- Radar Config -->
+    <include>
+      <uri>hrw_radar</uri>
+      <pose frame=''> 0.13 0 0.3 0 0 0 </pose>
+    </include>
+    <joint name="radar_joint" type="fixed">
+      <child>radar::top</child>
+      <parent>nix_tower::plate</parent>
+     
+      <pose>0.15 0 0.3 0 0 0</pose>
+    </joint>
+
     <include>
       <uri>wide_lens_camera</uri>
       <pose frame=''> 0.16 -0.08 0.39 0 0 0 </pose>
