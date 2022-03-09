@@ -1,28 +1,29 @@
 <launch>
     <env name="IGN_GAZEBO_RESOURCE_PATH" value="$(find nix_simulator)/models:$(find nix_simulator)/models/sensors"/>
 
-    <arg name="world_name" default="upo_basement.world"/>
+    <!-- IMPORTANT: the world name must be the same as the filename of the world file (verify it in the .sdf world file) -->
+    <arg name="world_name" default="upo_basement"/>
     <arg name="model" default="nix/nix.sdf"/>
 
     <!-- Marsella MockUp World -->
     <include file="$(find ros_ign_gazebo)/launch/ign_gazebo.launch">
-      <arg name="ign_args" value="-r -v 4 $(find nix_simulator)/worlds/$(arg world_name)"/>
+      <arg name="ign_args" value="-r -v 4 $(find nix_simulator)/worlds/$(arg world_name).world"/>
       <env name="IGN_GAZEBO_RESOURCE_PATH" value="$(optenv IGN_GAZEBO_RESOURCE_PATH):$(find nix_simulator)/models:$(find nix_simulator)/models/sensors:$(find nix_simulator)/resources"/>
     </include>
-
 
     <!-- Default initial position-->
   <arg name="x_pos" default="0 " />
   <arg name="y_pos" default="0" />
   <arg name="z_pos" default="0.4 " />
+
+  <!-- Spawn the node. IMPORTANT: the world name must be the same as the filename of the world file -->
     <node
     pkg="ros_ign_gazebo"
     type="create"
     name="nix_spawn"
     output="screen"
-    args="-world nix_ramp -file $(find nix_simulator)/models/$(arg model) -name raposa -allow_renaming true -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) --timeout 3000">
+    args="-world $(arg world_name) -file $(find nix_simulator)/models/$(arg model) -name raposa -allow_renaming true -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) --timeout 10000">
     </node>
-
 
    <node
     pkg="ros_ign_bridge"
@@ -30,7 +31,7 @@
     name="$(anon ros_ign_bridge)"
     output="screen"
     args="/camera@sensor_msgs/Image@ignition.msgs.Image /lidar/points@sensor_msgs/PointCloud2@ignition.msgs.PointCloudPacked /radar/points@sensor_msgs/PointCloud2@ignition.msgs.PointCloudPacked 
-         /cmd_vel@geometry_msgs/Twist@ignition.msgs.Twist /model/raposaNG/tf@tf2_msgs/TFMessage@ignition.msgs.Pose_V  /world/nix_ramp/pose/info@tf2_msgs/TFMessage@ignition.msgs.Pose_V">
+         /cmd_vel@geometry_msgs/Twist@ignition.msgs.Twist /model/raposaNG/tf@tf2_msgs/TFMessage@ignition.msgs.Pose_V  /world/$(arg world_name)/pose/info@tf2_msgs/TFMessage@ignition.msgs.Pose_V">
 
     <remap from="/model/raposaNG/tf" to ="/tf"/>
   </node>

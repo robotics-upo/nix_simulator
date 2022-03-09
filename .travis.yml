@@ -45,9 +45,9 @@ cache:
 language: generic
 matrix:
   include:
-  - name: Melodic Morenia
-    dist: bionic
-    env: ROS_DISTRO=melodic
+  - name: Noetic Nimjemys
+    dist: focal
+    env: ROS_DISTRO=noetic
     
 env:
   global:
