@@ -5,7 +5,7 @@ if [[ -z "$ROS_DISTRO" ]]; then
 fi
 
 # Install our ignition gazebo with radar support
-echo Getting ignition gazebo sources. First dependencies (source )
+echo "Getting ignition gazebo sources. First dependencies (source )"
 sudo apt install python3-pip wget lsb-release gnupg curl
 pip install vcstool || pip3 install vcstool
 pip install -U colcon-common-extensions || pip3 install -U colcon-common-extensions

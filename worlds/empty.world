@@ -1,10 +1,10 @@
 <?xml version="1.0" ?>
 <sdf version="1.5">
-  <world name="default">
+  <world name="empty">
         
     <light name='sun' type='directional'>
       <cast_shadows>1</cast_shadows>
-      <pose frame=''>0 0 10 0 -0 0</pose>
+      <pose frame=''>0 0 100 0 -0 0</pose>
       <diffuse>0.8 0.8 0.8 1</diffuse>
       <specular>0.2 0.2 0.2 1</specular>
       <attenuation>
@@ -16,86 +16,27 @@
       <direction>-0.5 0.1 -0.9</direction>
     </light>
     
-   
-    <!-- <model name='ground_plane'>
-      <static>1</static>
-      <link name='link'>
-        <collision name='collision'>
-          <geometry>
-            <plane>
-              <normal>0 0 1</normal>
-              <size>100 100</size>
-            </plane>
-          </geometry>
-          <surface>
-            <contact>
-              <collide_bitmask>65535</collide_bitmask>
-              <ode/>
-            </contact>
-            <friction>
-              <ode>
-                <mu>500</mu>
-                <mu2>450</mu2>
-		            <slip1>0</slip1>
-		            <slip2>0</slip2>
-              </ode>
-              <torsional>
-                <ode/>
-              </torsional>
-            </friction>
-            <bounce/>
-          </surface>
-          <max_contacts>100</max_contacts>
-        </collision>
-        <visual name='visual'>
-          <cast_shadows>0</cast_shadows>
-          <geometry>
-            <plane>
-              <normal>0 0 1</normal>
-              <size>100 100</size>
-            </plane>
-          </geometry>
-          <material>
-            <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grass</name>
-            </script>
-          </material>
-        </visual>
-        <self_collide>0</self_collide>
-        <kinematic>0</kinematic>
-      </link>
-    </model> -->
      <!-- The staging area -->
-    <include>
-      <static>true</static>
-      <name>staging_area</name>
-      <pose>0 0 0 0 0 0</pose>
-      <uri>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Cave Starting Area Type B</uri>
-    </include>
-
-
-    <!-- The base station -->
-    <!-- <include>
+     <include>
       <static>true</static>
       <name>base_station</name>
       <pose>-8 0 0 0 0 -1.5708</pose>
       <uri>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Base Station</uri>
-    </include> -->
-
+    </include>
 
     <!-- Tunnel tiles and artifacts -->
     <include>
       <name>tile_1</name>
       <uri>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Cave Corner 01 Type B</uri>
-      <pose>0.000000 0.000000 10.000000 0 0 3.141593</pose>
+      <pose>0.000000 0.000000 0.000000 0 0 3.141593</pose>
     </include>
 
-    <include>
+     <include>
       <name>tile_2</name>
       <uri>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Cave Straight 02 Type B</uri>
-      <pose>25.000000 0.000000 10.000000 0 0 1.570796</pose>
+      <pose>25.000000 0.000000 0.000000 0 0 1.570796</pose>
     </include>
+<!--
 
     <include>
       <name>tile_3</name>
@@ -108,7 +49,7 @@
       <uri>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Cave Cavern Split 01 Type B</uri>
       <pose>75.000000 0.000000 10.000000 0 0 0.000000</pose>
     </include>
-    
+     -->
     <gravity>0 0 -9.8</gravity>
     
     <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
@@ -126,13 +67,14 @@
       </bullet>
     </physics>
      -->
-   <physics name='default_physics' default='0' type='ode'>
+
+    <physics name='default_physics' default='0' type='ode'>
       <max_step_size>0.01</max_step_size>
       <real_time_factor>1</real_time_factor>
-      <real_time_update_rate>1000</real_time_update_rate>
+      <real_time_update_rate>500</real_time_update_rate>
       <ode>
         <solver>
-          <iters>100</iters>
+          <iters>50</iters>
         </solver>
       </ode>
     </physics>
