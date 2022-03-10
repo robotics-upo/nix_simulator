@@ -40,4 +40,6 @@
   <node pkg="tf2_ros" type="static_transform_publisher" name="lidar_broadcaster" args="0.1 0 0.40 0 0 0 raposaNG/base_link raposa/velodyne/top/gpu_lidar"/>
   <node pkg="tf2_ros" type="static_transform_publisher" name="radar_broadcaster" args="0.1 0 0.40 0 0 0 raposaNG/base_link raposa/radar/top/gpu_radar"/>
 
+  <include file="$(find nix_simulator)/launch/teleop.launch"/>
+
 </launch>
