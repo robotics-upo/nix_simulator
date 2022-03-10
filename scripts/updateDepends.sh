@@ -16,8 +16,8 @@ pip install -U colcon-common-extensions || pip3 install -U colcon-common-extensi
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
 sudo apt-get update
-sudo apt-get install python3-vcstool python3-colcon-common-extensions
-sudo apt-get install git
+sudo apt-get -y install python3-vcstool python3-colcon-common-extensions
+sudo apt-get -y install git ros-$ROS_DISTRO-joy-teleop 
 # Getting the sources
 mkdir -p ~/ign_workspace/src
 cd ~/ign_workspace/src
@@ -32,7 +32,7 @@ sudo apt -y install \
 # Build the ignition workspace
 cd ~/ign_workspace
 colcon graph
-colcon build -DBUILD_TESTING=OFF --merge-install
+colcon build --cmake-args -DBUILD_TESTING=OFF --merge-install
 
 #Get ign ros
 # Setup the workspace
