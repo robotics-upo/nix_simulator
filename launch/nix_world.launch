@@ -4,6 +4,7 @@
     <!-- IMPORTANT: the world name must be the same as the filename of the world file (verify it in the .sdf world file) -->
     <arg name="world_name" default="upo_basement"/>
     <arg name="model" default="nix/nix.sdf"/>
+    <param name="use_sim_time" value="true"/>
 
     <!-- Marsella MockUp World -->
     <include file="$(find ros_ign_gazebo)/launch/ign_gazebo.launch">
@@ -22,7 +23,7 @@
     type="create"
     name="nix_spawn"
     output="screen"
-    args="-world $(arg world_name) -file $(find nix_simulator)/models/$(arg model) -name raposa -allow_renaming true -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) --timeout 10000">
+    args="-world $(arg world_name) -file $(find nix_simulator)/models/$(arg model) -name raposa -allow_renaming true -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) --timeout 20000">
     </node>
 
    <node
@@ -30,11 +31,17 @@
     type="parameter_bridge"
     name="$(anon ros_ign_bridge)"
     output="screen"
-    args="/camera@sensor_msgs/Image@ignition.msgs.Image /lidar/points@sensor_msgs/PointCloud2@ignition.msgs.PointCloudPacked /radar/points@sensor_msgs/PointCloud2@ignition.msgs.PointCloudPacked 
-         /cmd_vel@geometry_msgs/Twist@ignition.msgs.Twist /model/raposaNG/tf@tf2_msgs/TFMessage@ignition.msgs.Pose_V  /world/$(arg world_name)/pose/info@tf2_msgs/TFMessage@ignition.msgs.Pose_V">
+    args="/camera@sensor_msgs/Image@ignition.msgs.Image /lidar/points@sensor_msgs/PointCloud2@ignition.msgs.PointCloudPacked 
+          /radar/points@sensor_msgs/PointCloud2@ignition.msgs.PointCloudPacked 
+         /cmd_vel@geometry_msgs/Twist@ignition.msgs.Twist /model/raposaNG/tf@tf2_msgs/TFMessage@ignition.msgs.Pose_V 
+          /world/$(arg world_name)/pose/info@tf2_msgs/TFMessage@ignition.msgs.Pose_V
+         /clock@rosgraph_msgs/Clock@ignition.msgs.Clock
+         ">
 
     <remap from="/model/raposaNG/tf" to ="/tf"/>
   </node>
+
+  <node pkg="nix_simulator" type="ign_clock_publisher" name="ign_clock_publisher"/>
 
   <node pkg="rviz" type="rviz" name="rviz" args="-d $(find nix_simulator)/viz/basic_sensors.rviz"/>
   <node pkg="tf2_ros" type="static_transform_publisher" name="lidar_broadcaster" args="0.1 0 0.40 0 0 0 raposaNG/base_link raposa/velodyne/top/gpu_lidar"/>
