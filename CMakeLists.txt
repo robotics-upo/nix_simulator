@@ -1,13 +1,10 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(nix_simulator)
 
-## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+## Compile as C++14, supported in ROS Kinetic and newer
+add_compile_options(-std=c++14)
 
-## Find catkin macros and libraries
-## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
-## is used, also find other catkin packages
-
+## Execute commands needed for simulation
 execute_process(COMMAND "./scripts/duplicate_sensors.sh" 
                 WORKING_DIRECTORY ${PROJECT_SOURCE_DIR} )
 execute_process(COMMAND "./scripts/download_mesh.sh" 
@@ -23,24 +20,16 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
 )
 
-find_package(std_msgs REQUIRED)
-include_directories(${catkin_INCLUDE_DIRS} include)
-include_directories(${std_msgs_INCLUDE_DIRS})
+catkin_package(
+#  INCLUDE_DIRS include
+#  LIBRARIES cloud_concatenator
+#  CATKIN_DEPENDS message_filters pcl_ros roscpp sensor_msgs
+#  DEPENDS system_lib
+)
 
-# Find Gazebo
-#find_package(gazebo REQUIRED)
-#include_directories(${GAZEBO_INCLUDE_DIRS} deps/opende/src deps/threadpool/  )
-#link_directories(${GAZEBO_LIBRARY_DIRS})
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
+# Find the Ignition_Transport library
+find_package(ignition-transport11 QUIET REQUIRED OPTIONAL_COMPONENTS log)
+set(IGN_TRANSPORT_VER ${ignition-transport11_VERSION_MAJOR})
 
-# Build our plugin
-# add_library(nix_plugin SHARED src/nix_plugin.cpp)
-# target_link_libraries(nix_plugin SimpleTrackedVehiclePlugin /usr/lib/x86_64-linux-gnu/gazebo-9/plugins/libSimpleTrackedVehiclePlugin.so )
-# target_link_libraries(nix_plugin SimpleTrackedVehiclePlugin TrackedVehiclePlugin /usr/lib/x86_64-linux-gnu/gazebo-9/plugins/libTrackedVehiclePlugin.a ${GAZEBO_LIBRARIES} ${catkin_LIBRARIES} )
-
-#add_library(TrackedVehiclePluginROS SHARED src/TrackedVehiclePluginROS.cc)
-#target_link_libraries(TrackedVehiclePluginROS ${GAZEBO_LIBRARIES} ${catkin_LIBRARIES} )
-
-#add_library(SimpleTrackedVehiclePluginROS SHARED src/SimpleTrackedVehiclePluginROS.cc)
-#target_link_libraries(SimpleTrackedVehiclePluginROS TrackedVehiclePluginROS ${GAZEBO_LIBRARIES} ${catkin_LIBRARIES} )
-
+add_executable(ign_clock_publisher src/ign_clock_publisher.cpp)
+target_link_libraries(ign_clock_publisher  ignition-transport${IGN_TRANSPORT_VER}::core )
