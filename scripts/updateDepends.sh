@@ -17,7 +17,7 @@ sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main
 curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
 sudo apt-get update
 sudo apt-get -y install python3-vcstool python3-colcon-common-extensions
-sudo apt-get -y install git ros-$ROS_DISTRO-joy-teleop 
+sudo apt-get -y install git ros-$ROS_DISTRO-joy-teleop ros-$ROS_DISTRO-teleop-twist-joy ros-$ROS_DISTRO-joy
 # Getting the sources
 mkdir -p ~/ign_workspace/src
 cd ~/ign_workspace/src
