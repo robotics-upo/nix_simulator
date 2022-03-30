@@ -33,3 +33,6 @@ set(IGN_TRANSPORT_VER ${ignition-transport11_VERSION_MAJOR})
 
 add_executable(ign_clock_publisher src/ign_clock_publisher.cpp)
 target_link_libraries(ign_clock_publisher  ignition-transport${IGN_TRANSPORT_VER}::core )
+
+add_executable(ground_truth_pose_publisher src/ground_truth_pose_publisher.cpp)
+target_link_libraries(ground_truth_pose_publisher  ignition-transport${IGN_TRANSPORT_VER}::core )

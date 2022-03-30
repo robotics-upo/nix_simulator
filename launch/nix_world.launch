@@ -35,10 +35,15 @@
           /radar/points@sensor_msgs/PointCloud2@ignition.msgs.PointCloudPacked 
          /cmd_vel@geometry_msgs/Twist@ignition.msgs.Twist /model/raposaNG/tf@tf2_msgs/TFMessage@ignition.msgs.Pose_V 
           /world/$(arg world_name)/pose/info@tf2_msgs/TFMessage@ignition.msgs.Pose_V
-         /clock@rosgraph_msgs/Clock@ignition.msgs.Clock
+         /clock@rosgraph_msgs/Clock@ignition.msgs.Clock  /gt@tf2_msgs/TFMessage@ignition.msgs.Pose_V
          ">
 
     <remap from="/model/raposaNG/tf" to ="/tf"/>
+    <remap from="/gt" to ="/tf"/>
+  </node>
+
+  <node pkg="nix_simulator" type="ground_truth_pose_publisher" name="gt" args="$(arg world_name) raposa">
+
   </node>
 
   <node pkg="nix_simulator" type="ign_clock_publisher" name="ign_clock_publisher"/>
