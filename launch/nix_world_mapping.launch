@@ -48,9 +48,11 @@
 
   <node pkg="nix_simulator" type="ign_clock_publisher" name="ign_clock_publisher"/>
 
-  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find nix_simulator)/viz/basic_sensors.rviz"/>
-  <node pkg="tf2_ros" type="static_transform_publisher" name="lidar_broadcaster" args="0.1 0 0.40 0 0 0 raposaNG/base_link raposa/velodyne/top/gpu_lidar"/>
-  <node pkg="tf2_ros" type="static_transform_publisher" name="radar_broadcaster" args="0.1 0 0.40 0 0 0 raposaNG/base_link raposa/radar/top/gpu_radar"/>
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find nix_simulator)/viz/mapping.rviz"/>
+  <node pkg="tf2_ros" type="static_transform_publisher" name="lidar_broadcaster" args="0.1 0 0.40 0 0 0 raposa raposa/velodyne/top/gpu_lidar"/>
+  <node pkg="tf2_ros" type="static_transform_publisher" name="radar_broadcaster" args="0.1 0 0.40 0 0 0 raposa raposa/radar/top/gpu_radar"/>
+  
+  <include file="$(find nix_simulator)/launch/octomap_server.launch"/>
 
   <include file="$(find nix_simulator)/launch/teleop.launch"/>
 
