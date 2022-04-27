@@ -22,6 +22,7 @@
 
 ignition::transport::v11::Node::Publisher pub;
 char *model_name = NULL;
+const char *global_frame = "world";
 ignition::msgs::Time t;
 
 //////////////////////////////////////////////////
@@ -38,10 +39,10 @@ void cb(const ignition::msgs::Pose_V &_msg)
           ignition::msgs::Pose *pose = sending_msg.add_pose();
           ignition::msgs::Header *head = new ignition::msgs::Header;
           auto data = head->add_data();
-          data->add_value("world");
+          data->add_value(global_frame);
           data->set_key("frame_id");
           auto data2 = head->add_data();
-          data2->add_value("raposa_gt");
+          data2->add_value(model_name);
           data2->set_key("child_frame_id");
           pose->set_allocated_header(head);
           ignition::msgs::Vector3d *pos = new ignition::msgs::Vector3d;
@@ -79,16 +80,18 @@ void clock_cb(const ignition::msgs::WorldStatistics &_msg)
 //////////////////////////////////////////////////
 int main(int argc, char **argv)
 {
-
-
   if (argc < 3) {
-      std::cout << "Usage: " << argv[0] << " <world_name> <model_name>";
+      std::cout << "Usage: " << argv[0] << " <world_name> <model_name> [<global_frame_id>]";
   }
 
   ignition::transport::Node node;
   std::ostringstream topic;
   topic << "/world/" << argv[1] << "/pose/info";
   model_name = argv[2];
+
+  if (argc > 3) {
+    global_frame = argv[3];
+  }
 
   pub = node.Advertise<ignition::msgs::Pose_V>("/gt");
 
