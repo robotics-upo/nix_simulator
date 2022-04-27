@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <sdf version="1.5">
   
-  <world name="nix_ramp">
+  <world name="simple_fog"> <!-- Important: the world name should be the same as the filename -->
   <plugin
       filename="ignition-gazebo-sensors-system"
       name="ignition::gazebo::systems::Sensors">

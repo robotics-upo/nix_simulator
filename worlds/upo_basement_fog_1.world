@@ -9,7 +9,7 @@
       name="ignition::gazebo::systems::Sensors">
       <render_engine>ogre2</render_engine>
     </plugin>
-  <world name="upo_basement"> <!-- Important: the world name should be the same as the filename -->
+  <world name="upo_basement_fog_1"> <!-- Important: the world name should be the same as the filename --> 
     <plugin
       filename="ignition-gazebo-sensors-system"
       name="ignition::gazebo::systems::Sensors">
@@ -103,6 +103,18 @@
             </ignition-gui>
         </plugin>
     </gui>
+
+    <include>
+      <uri>fog_generator</uri>
+      <name>fog</name>
+      <pose>2 3 -0.25 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>fog_generator</uri>
+      <name>fog2</name>
+      <pose>2 -2 -0.25 0 0 0</pose>
+    </include>
 
     <!-- Shape of the UPO basement-->
     <model name="left_wall">

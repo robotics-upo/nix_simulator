@@ -4,18 +4,18 @@
   filename="ignition-gazebo-particle-emitter2-system"
   name="ignition::gazebo::systems::ParticleEmitter2">
   </plugin>
-  <world name="nix_ramp">
+  <world name="nix_ramp"> <!-- Important: the world name should be the same as the filename -->
         <gui>
             <plugin name="keyboard" filename="libKeyboardGUIPlugin.so"/>
         </gui>
 
     <model name="fog_generator">
-    <pose>3.80 12.7 0 0 -1.5707 0</pose>
+    <pose>13.80 12.7 0 0 -1.5707 0</pose>
     <static>true</static>
     <link name="fog_link">
     <particle_emitter name="emitter" type="box">
       <emitting>true</emitting>
-      <size>10 10 0</size>
+      <size>1 1 1</size>
       <particle_size>1 1 1</particle_size>
       <lifetime>25</lifetime>
       <min_velocity>0.1</min_velocity>
