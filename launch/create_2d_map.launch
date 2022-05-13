@@ -1,0 +1,26 @@
+<launch>
+
+    <param name="use_sim_time" value="true"/>
+
+    <arg name="pi/2" value="1.5707963267948966"/>
+    <arg name="sec"                    default="0"/>
+    <arg name="rate"                   default="1"/>
+
+
+    <arg name="pi"   value="3.141592654"/>
+
+
+    <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping">
+        <param name="odom_frame" value="world"/>
+        <param name="base_frame" value="raposa_gt"/>
+    </node>
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find nix_simulator)/viz/mapping.rviz"/>
+    <node pkg="upo_markers" type="marker_node" name="raposa_marker"/>
+
+    <!-- <include file="$(find teleop_twist_joy)/launch/teleop.launch"/>
+    <node name="joy" pkg="joy" type="joy_node"/> -->
+
+    
+
+</launch>
