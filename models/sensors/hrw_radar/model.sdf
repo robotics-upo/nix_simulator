@@ -65,7 +65,7 @@
             <range>
               <min>0.2</min>
               <max>20.0</max>
-              <resolution>0.04</resolution>
+              <resolution>0.01</resolution>
             </range>
           </radar>
           <alwaysOn>1</alwaysOn>
