@@ -990,7 +990,7 @@
         <right_joint>right_track_wheel7_j</right_joint>
         <left_joint>left_track_wheel8_j</left_joint>
         <right_joint>right_track_wheel8_j</right_joint>
-        <wheel_separation>0.493</wheel_separation>
+        <wheel_separation>0.55</wheel_separation>
         <wheel_radius>0.09047</wheel_radius>
         <odom_publish_frequency>100</odom_publish_frequency>
         <topic>cmd_vel</topic>
