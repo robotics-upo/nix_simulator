@@ -57,4 +57,5 @@ models/sensors/pico_flexx_r/meshes/picoflexx.stl
 models/mockup_nix/mesh/mockup_nix.dae
 models/mockup_nix/mesh/mockup_nix.md5
 
-resources/maps
+resources/maps/nix_ramp
+resources/maps/nix_ramp_obscure
