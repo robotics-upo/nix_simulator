@@ -54,4 +54,15 @@
 
   <include file="$(find nix_simulator)/launch/teleop.launch"/>
 
+  <arg name="map_name" default="upo_basement"/>
+  <arg name="amcl_x" default="$(arg x_pos)"/>
+  <arg name="amcl_y" default="$(arg y_pos)"/>
+  <arg name="amcl_a" default="0.0"/>
+  <include file="$(find nix_simulator)/launch/amcl.launch">
+    <arg name="map2d_name" value="$(arg map_name)"/>
+    <arg name="initial_pose_x" value="$(arg amcl_x)"/>
+    <arg name="initial_pose_y" value="$(arg amcl_y)"/>
+    <arg name="initial_pose_a" value="$(arg amcl_a)"/>
+  </include>
+
 </launch>
